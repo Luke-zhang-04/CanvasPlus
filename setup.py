@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="CanvasPlus-LUKE-ZHANG-04",
+    name="CanvasPlus-Luke-zhang-04",
     version="0.0.1",
     author="Luke Zhang",
     author_email="luke.zhang2004@gmail.com",
