@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="CanvasPlus-Luke-zhang-04",
-    version="0.0.1",
+    version="1.0.1",
     author="Luke Zhang",
     author_email="luke.zhang2004@gmail.com",
     description="Improved Canvas widget for tkinter with more functionality to display graphical elements like lines or text. ",
