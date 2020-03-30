@@ -7,12 +7,23 @@ import cmath, math
 #stuff for typing hints
 from numbers import Real
 
+#warnings
+import warnings
+
 class Error(Exception):
    '''Base class for other exceptions'''
    pass
 
 class InvalidUnitError(Error):
     '''Raised when unit is not recognised'''
+    pass
+
+class UnsupportedObjectType(UserWarning):
+    '''raised when object type is not supported'''
+    pass
+
+class InvalidObjectType(Error):
+    '''raised when object type not supported'''
     pass
 
 class CanvasPlus(Canvas):
@@ -65,6 +76,32 @@ class CanvasPlus(Canvas):
         
         return self._create('polygon', points, kwargs)
 
+    def poly(self, obj:int) -> int:
+        '''converts rectangle to polygon'''
+        properties = self.itemconfig(obj)
+        output = {
+            key: properties[key][-1] for key in properties
+        }
+        
+        cords = [self.tk.getdouble(x) for x in self.tk.splitlist(self.tk.call((self._w, 'coords') + tuple([obj])))]
+
+        if output["width"] == '0.0':
+            output["outline"] = ''
+
+        if self.tk.call(self._w, 'type', obj) == "rectangle":
+            newCords = [
+                cords[0], cords[1],
+                cords[1], cords[2],
+                cords[2], cords[3],
+                cords[3], cords[0]
+            ]
+        else:
+            raise InvalidObjectType("Invalid canvas element \"" + self.tk.call(self._w, 'type', obj) + "\"")
+
+        self.tk.call((self._w, 'delete') + tuple([obj]))
+
+        return self._create('polygon', newCords, output)
+
     def rotate(self, obj: int, x: Real, y: Real, amount: Real, unit: str = "rad") -> None:
         '''rotate obj on axis x, y by amount in degrees or radians clockwise'''
         if unit in ("d", "deg", "degree", "degrees"):
@@ -85,7 +122,12 @@ class CanvasPlus(Canvas):
             newCords.append(num.real)
             newCords.append(num.imag)
         
-        self.coords(obj, *newCords)
+        objType = self.tk.call(self._w, 'type', obj)
+        if objType == "polygon":
+            self.coords(obj, *newCords)
+        else:
+            warnings.warn("WARNING! Canvas element of type " + objType + " is not supported. Rotation may not look as expected.", UnsupportedObjectType)
+            self.coords(obj, *newCords)
         
 
 def _test():
@@ -98,6 +140,9 @@ def _test():
     canvas.create_round_rectangle(400, 400, 500, 500, radius = 75, fill = "blue", outline = "orange", width = 5)
     arrow = canvas.create_arrow(600, 600, 50, 50, 150, 20, fill = "grey", outline = "black")
     canvas.rotate(arrow, 600, 600, 310, unit="deg")
+    rect = canvas.create_rectangle(100, 100, 200, 200, fill = "#f7a8c6", width = 0)
+    rect = canvas.poly(rect)
+    canvas.move(rect, 100, 0)
 
     canvas.update()
     canvas.mainloop()
