@@ -76,7 +76,7 @@ class CanvasPlus(Canvas):
         
         return self._create('polygon', points, kwargs)
 
-    def poly(self, obj:int) -> int:
+    def to_polygon(self, obj:int) -> int:
         '''converts rectangle to polygon'''
         properties = self.itemconfig(obj)
         output = {
@@ -101,6 +101,8 @@ class CanvasPlus(Canvas):
         self.tk.call((self._w, 'delete') + tuple([obj]))
 
         return self._create('polygon', newCords, output)
+
+    poly = to_polygon
 
     def rotate(self, obj: int, x: Real, y: Real, amount: Real, unit: str = "rad") -> None:
         '''rotate obj on axis x, y by amount in degrees or radians clockwise'''
@@ -142,7 +144,6 @@ def _test():
     canvas.rotate(arrow, 600, 600, 310, unit="deg")
     rect = canvas.create_rectangle(100, 100, 200, 200, fill = "#f7a8c6", width = 0)
     rect = canvas.poly(rect)
-    canvas.move(rect, 100, 0)
 
     canvas.update()
     canvas.mainloop()
