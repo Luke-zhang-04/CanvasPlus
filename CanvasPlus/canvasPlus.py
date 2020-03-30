@@ -67,13 +67,25 @@ class CanvasPlus(Canvas):
 
     def rotate(self, obj: int, x: Real, y: Real, amount: Real, unit: str = "rad") -> None:
         '''rotate obj on axis x, y by amount in degrees or radians clockwise'''
-        if unit == "d" or unit == "deg" or unit == "degree" or unit == "degrees":
-            radians = False
-        elif unit == "r" or unit == "rad" or unit == "radian" or unit == "radians":
-            radians = True
+        if unit in ("d", "deg", "degree", "degrees"):
+            amount *= math.pi/180 #convert to radians
+        elif unit in ("r", "rad", "radian", "radians"):
+            pass
         else:
             raise InvalidUnitError("Invalid unit \"" + unit + "\"")
-
+        
+        angle = cmath.exp(amount*1j)
+        offset = complex(x, y)
+        newCords = []
+        cords = [
+            (self.coords(obj)[i], self.coords(obj)[i+1]) for i in range(0, len(self.coords(obj)), 2)
+        ]
+        for xPt, yPt in cords:
+            num = angle * (complex(xPt, yPt) - offset) + offset
+            newCords.append(num.real)
+            newCords.append(num.imag)
+        
+        self.coords(obj, *newCords)
         
 
 def _test():
@@ -84,8 +96,8 @@ def _test():
 
     canvas.create_circle(300, 300, 100, fill = "black", outline = "green", width = 3)
     canvas.create_round_rectangle(400, 400, 500, 500, radius = 75, fill = "blue", outline = "orange", width = 5)
-    canvas.create_arrow(600, 600, 50, 50, 150, 20, fill = "grey", outline = "black")
-    canvas.rotate(1, 1, 1, 1)
+    arrow = canvas.create_arrow(600, 600, 50, 50, 150, 20, fill = "grey", outline = "black")
+    canvas.rotate(arrow, 600, 600, 310, unit="deg")
 
     canvas.update()
     canvas.mainloop()
