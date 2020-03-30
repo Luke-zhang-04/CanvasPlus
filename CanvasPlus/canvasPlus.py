@@ -134,16 +134,22 @@ class CanvasPlus(Canvas):
 
 def _test():
     from tkinter import Tk
+    import math
+
     root = Tk()
     canvas = CanvasPlus(root, width=800, height=800, background = "white")
     canvas.pack()
 
     canvas.create_circle(300, 300, 100, fill = "black", outline = "green", width = 3)
+    
     canvas.create_round_rectangle(400, 400, 500, 500, radius = 75, fill = "blue", outline = "orange", width = 5)
+
     arrow = canvas.create_arrow(600, 600, 50, 50, 150, 20, fill = "grey", outline = "black")
     canvas.rotate(arrow, 600, 600, 310, unit="deg")
+
     rect = canvas.create_rectangle(100, 100, 200, 200, fill = "#f7a8c6", width = 0)
     rect = canvas.poly(rect)
+    canvas.rotate(rect, 150, 150, math.pi/4)
 
     canvas.update()
     canvas.mainloop()
