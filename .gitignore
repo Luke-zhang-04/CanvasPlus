@@ -1,6 +1,9 @@
 #.vscode is bruh
 .vscode
 
+#also ds_store is bruh
+.DS_Store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
