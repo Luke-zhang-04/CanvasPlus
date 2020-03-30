@@ -3,6 +3,7 @@
 
 #also ds_store is bruh
 .DS_Store
+.ds_store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
