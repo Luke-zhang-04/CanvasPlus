@@ -24,7 +24,7 @@ Download a zip file containing all files.
 ```
 git clone https://github.com/Luke-zhang-04/CanvasPlus.git
 ```
-or
+or<br/>
 ![Screen Shot 2020-03-31 at 2 48 23 PM](https://user-images.githubusercontent.com/55749227/78063759-b4766700-735e-11ea-8ba7-6cfe3b72bcb0.png)
 
 ## Usage ##
