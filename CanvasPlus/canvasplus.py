@@ -1,11 +1,19 @@
+'''
+Canvas Plus v1.0.1 (https://github.com/Luke-zhang-04/CanvasPlus)
+Licensed under GPL-3.0 (https://github.com/Luke-zhang-04/CanvasPlus/blob/master/LICENSE)
+'''
+
 #tkinter
-from tkinter import Canvas
+from tkinter import Canvas, Entry, Button
 
 #complex numbers and stuff
 import cmath, math
 
 #stuff for typing hints
 from numbers import Real
+
+#typing
+from typing import Tuple
 
 #warnings
 import warnings
@@ -28,6 +36,8 @@ class InvalidObjectType(Error):
 
 class CanvasPlus(Canvas):
     '''Improved Canvas widget with more functionality to display graphical elements like lines or text.'''
+
+    windowProperties = ["anchor", "height", "state", "tags", "width", "window"]
 
     def create_circle(self, x: Real, y: Real, radius: Real, **kwargs) -> int:
         '''Create circle with coordinates x, y, radius'''
@@ -131,9 +141,43 @@ class CanvasPlus(Canvas):
             warnings.warn("WARNING! Canvas element of type " + objType + " is not supported. Rotation may not look as expected.", UnsupportedObjectType)
             self.coords(obj, *newCords)
         
+    def create_text_input(self, x: Real, y: Real, **kwargs) -> Tuple[int, Entry]:
+        '''create text entry box with cordinates x1 y1
+
+        Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the entry widget while "anchor" will be allocated to the window createion
+        '''
+        entryKwargs = {}
+        windowKwargs = {}
+        for key, val in kwargs:
+            if val in windowProperties:
+                window[key] = val
+            else:
+                entryKwargs[key] = val
+
+        entry = Entry(self, **entryKwargs)
+        windowKwargs["window"] = entry
+        return self.create_window(x, y, **windowKwargs), entry
+    
+    def create_button(self, x: Real, y: Real, **kwargs) -> Tuple[int, Button]:
+        '''create button with cordinates x1 y1
+
+        Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the entry widget while "anchor" will be allocated to the window createion
+        '''
+        buttonKwargs = {}
+        windowKwargs = {}
+        for key, val in kwargs:
+            if val in windowProperties:
+                window[key] = val
+            else:
+                buttonKwargs[key] = val
+
+        button = Button(self, **buttonKwargs)
+        windowKwargs["window"] = button
+        return self.create_window(x, y, **windowKwargs), button
+
 
 def _test():
-    from tkinter import Tk
+    from tkinter import Tk, StringVar
     import math
 
     root = Tk()
@@ -151,8 +195,17 @@ def _test():
     rect = canvas.poly(rect)
     canvas.rotate(rect, 150, 150, math.pi/4)
 
+    strVar = StringVar()
+    canvas.create_text_input(0, 0)
+    strVar.set("a default value")
+
     canvas.update()
     canvas.mainloop()
 
 if __name__ == "__main__":
     _test()
+
+'''
+Canvas Plus v1.0.1 (https://github.com/Luke-zhang-04/CanvasPlus)
+Licensed under GPL-3.0 (https://github.com/Luke-zhang-04/CanvasPlus/blob/master/LICENSE)
+'''
