@@ -14,7 +14,7 @@ setuptools.setup(
     url="https://github.com/Luke-zhang-04/CanvasPlus",
     packages=setuptools.find_packages(),
     classifiers=[
-        'Development Status :: 3 - Alpha', # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package
+        'Development Status :: 5 - Production/Stable', # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Tcl",
         "Topic :: Multimedia :: Graphics",

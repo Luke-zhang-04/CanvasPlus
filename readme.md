@@ -24,9 +24,13 @@ Download a zip file containing all files.
 ```
 git clone https://github.com/Luke-zhang-04/CanvasPlus.git
 ```
+or
+![Screen Shot 2020-03-31 at 2 48 23 PM](https://user-images.githubusercontent.com/55749227/78063759-b4766700-735e-11ea-8ba7-6cfe3b72bcb0.png)
 
 ## Usage ##
 Usage is very simple, especially for those with experience using tkinter canvas.
+
+For complete documentation, head over the [the wiki](https://github.com/Luke-zhang-04/CanvasPlus/wiki)
 
 ### Example: ###
 ```python
@@ -88,5 +92,3 @@ canvas.mainloop()
 ```
 
 ![Screen Shot 2020-03-31 at 2 44 02 PM](https://user-images.githubusercontent.com/55749227/78063360-12567f00-735e-11ea-8b4e-066e9e681a92.png)
-
-For more information, head over the [the wiki](https://github.com/Luke-zhang-04/CanvasPlus/wiki)
