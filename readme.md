@@ -1,5 +1,5 @@
 # Canvas Plus #
-## V1.1.0 ##
+## V1.1.1 ##
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 [![PyPI version shields.io](https://img.shields.io/pypi/v/CanvasPlus.svg)](https://pypi.python.org/pypi/CanvasPlus/)
 [![GitHub release](https://img.shields.io/github/release/Luke-zhang-04/CanvasPlus)](https://GitHub.com/Luke-zhang-04/CanvasPlus/releases/)
@@ -35,6 +35,7 @@ For complete documentation, head over the [the wiki](https://github.com/Luke-zha
 ### Example: ###
 ```python
 #Imports
+from CanvasPlus import CanvasPlus
 from tkinter import Tk, StringVar, DoubleVar
 import math
 

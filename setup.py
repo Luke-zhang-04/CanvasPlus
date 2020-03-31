@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="CanvasPlus",
-    version="1.1.0",
+    version="1.1.1",
     author="Luke Zhang",
     author_email="luke.zhang2004@gmail.com",
     description="Improved Canvas widget for tkinter with more functionality to display graphical elements like lines or text. ",
@@ -15,7 +15,13 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     classifiers=[
         'Development Status :: 5 - Production/Stable', # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package
+        "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Programming Language :: Tcl",
         "Topic :: Multimedia :: Graphics",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
