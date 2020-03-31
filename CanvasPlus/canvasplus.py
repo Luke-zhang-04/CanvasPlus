@@ -1,6 +1,20 @@
 '''
+Luke-zhang-04
 Canvas Plus v1.1.0 (https://github.com/Luke-zhang-04/CanvasPlus)
-Licensed under GPL-3.0 (https://github.com/Luke-zhang-04/CanvasPlus/blob/master/LICENSE)
+Copyright (C) 2020 Luke-zhang-04
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see https://github.com/Luke-zhang-04/CanvasPlus/blob/master/LICENSE.
 '''
 
 #tkinter
@@ -144,7 +158,7 @@ class WidgetWindows:
         '''
         return self._create_widget(x, y, Scale, **kwargs)
     
-    def create_scale(self, x: Real, y: Real, **kwargs) -> Tuple[int, Scrollbar]:
+    def create_scrollbar(self, x: Real, y: Real, **kwargs) -> Tuple[int, Scrollbar]:
         '''
         create scrollbar with cordinates x y
 
@@ -283,35 +297,61 @@ class CanvasPlus(Canvas, WidgetWindows):
         return self._create('polygon', points, kwargs)
 
 def _test():
-    from tkinter import Tk, StringVar
+    #Imports
+    from tkinter import Tk, StringVar, DoubleVar
     import math
 
+    #set up canvas
     root = Tk()
     canvas = CanvasPlus(root, width=800, height=800, background = "white")
     canvas.pack()
 
+    #create circle function
     canvas.create_circle(300, 300, 100, fill = "black", outline = "green", width = 3)
     
-    canvas.create_round_rectangle(400, 400, 500, 500, radius = 75, fill = "blue", outline = "orange", width = 5)
+    #create rounded rectangle function
+    canvas.create_round_rectangle(
+        400, 400, 500, 500, radius = 75, fill = "blue", outline = "orange", width = 5
+    )   
 
+    #create arrow function and rotate it to by 310 degrees clockwise
     arrow = canvas.create_arrow(600, 600, 50, 50, 150, 20, fill = "grey", outline = "black")
     canvas.rotate(arrow, 600, 600, 310, unit="deg")
 
+    #create a rectangle and convert it to a polygon; then rotate it by pi/4 radians (45 degrees)
     rect = canvas.create_rectangle(100, 100, 200, 200, fill = "#f7a8c6", width = 0)
     rect = canvas.poly(rect)
     canvas.rotate(rect, 150, 150, math.pi/4)
 
-    strVar = StringVar()
-    canvas.create_entry(0, 0, anchor = "nw", textvariable=strVar)
-    strVar.set("a default value")
+    #create an entry and set it's default value
+    content = StringVar()
+    canvas.create_entry(0, 0, anchor = "nw", textvariable = content, fg = "blue", bg = "gold")
+    content.set("a default value")
+
+    #create button to print the value in the previously cretaed entry
+    canvas.create_button(
+        5, 25, anchor = "nw", text = "button", width = 50, highlightbackground = "red",
+        command = lambda e = content: print(e.get())
+    )
+
+    #create checkbutton and toggle it
+    _, checkbutton = canvas.create_checkbutton(
+        5, 50, anchor = "nw", bg = "brown", fg = "white", text = "My Checkbutton"
+    )
+    checkbutton.toggle()
+
+    #create a label
+    canvas.create_label(
+        5, 75, font = ("Times", "24"), fg = "black", bg = "green", text = "Hello World!", anchor = "nw"
+    )
+
+    #create a scale
+    canvas.create_scale(
+        5, 100, anchor = "nw", bg = "yellow", activebackground = "gold", from_ = 0, to = 100
+    )
 
     canvas.update()
     canvas.mainloop()
 
 if __name__ == "__main__":
     _test()
-
-'''
-Canvas Plus v1.0.1 (https://github.com/Luke-zhang-04/CanvasPlus)
-Licensed under GPL-3.0 (https://github.com/Luke-zhang-04/CanvasPlus/blob/master/LICENSE)
-'''
