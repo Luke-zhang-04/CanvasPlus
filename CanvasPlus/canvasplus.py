@@ -1,10 +1,13 @@
 '''
-Canvas Plus v1.0.1 (https://github.com/Luke-zhang-04/CanvasPlus)
+Canvas Plus v1.1.0 (https://github.com/Luke-zhang-04/CanvasPlus)
 Licensed under GPL-3.0 (https://github.com/Luke-zhang-04/CanvasPlus/blob/master/LICENSE)
 '''
 
 #tkinter
-from tkinter import Canvas, Entry, Button
+from tkinter import (
+    Canvas, Button, Checkbutton, Entry, Frame, Label, LabelFrame, Listbox,
+    Menu, PanedWindow, Radiobutton, Scale, Scrollbar, Spinbox, Text, Toplevel
+)
 
 #complex numbers and stuff
 import cmath, math
@@ -34,42 +37,148 @@ class InvalidObjectType(Error):
     '''raised when object type not supported'''
     pass
 
-class CanvasPlus(Canvas):
-    '''Improved Canvas widget with more functionality to display graphical elements like lines or text.'''
+class WidgetWindows:
+    '''Class for createing widgets as windows within the canvas'''
 
     windowProperties = ["anchor", "height", "state", "tags", "width", "window"]
 
-    def create_circle(self, x: Real, y: Real, radius: Real, **kwargs) -> int:
-        '''Create circle with coordinates x, y, radius'''
-        return self._create('oval', [x+radius, y+radius, x-radius, y-radius], kwargs)
+    def _create_widget(self, x, y, widget, **kwargs):
+        '''internal function: creates widget of widget type and puts it onto the canvas'''
+        widgetKwargs = {}
+        windowKwargs = {}
+        for key, val in kwargs.items():
+            if key in self.windowProperties:
+                windowKwargs[key] = val
+            else:
+                widgetKwargs[key] = val
 
-    def create_round_rectangle(self, x1: Real, y1: Real, x2: Real, y2: Real, radius: Real = 25, **kwargs) -> int:
-        '''Create circle with coordinates x1, y1, x2, y2, radius = val (default 25)'''
-        points = [
-            x1+radius, y1,
-            x1+radius, y1,
-            x2-radius, y1,
-            x2-radius, y1,
-            x2, y1,
-            x2, y1+radius,
-            x2, y1+radius,
-            x2, y2-radius,
-            x2, y2-radius,
-            x2, y2,
-            x2-radius, y2,
-            x2-radius, y2,
-            x1+radius, y2,
-            x1+radius, y2,
-            x1, y2, 
-            x1, y2-radius, 
-            x1, y2-radius, 
-            x1, y1+radius,
-            x1, y1+radius, 
-            x1, y1
-        ]
+        newWidget = widget(self, **widgetKwargs)
+        if "window" not in windowKwargs: windowKwargs["window"] = newWidget
+        return self.create_window(x, y, **windowKwargs), newWidget
+    
+    def create_button(self, x: Real, y: Real, **kwargs) -> Tuple[int, Button]:
+        '''
+        create button with cordinates x y
 
-        kwargs["smooth"] = True
-        return self._create('polygon', points, kwargs)
+        Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Button widget while "anchor" will be allocated to the window creation
+        '''
+        return self._create_widget(x, y, Button, **kwargs)
+        
+    def create_checkbutton(self, x: Real, y: Real, **kwargs) -> Tuple[int, Checkbutton]:
+        '''
+        create checkbutton with cordinates x y
+
+        Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Checkbutton widget while "anchor" will be allocated to the window creation
+        '''
+        return self._create_widget(x, y, Checkbutton, **kwargs)
+
+    def create_entry(self, x: Real, y: Real, **kwargs) -> Tuple[int, Entry]:
+        '''
+        create text entry box with cordinates x y
+
+        Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Entry widget while "anchor" will be allocated to the window creation
+        '''
+        return self._create_widget(x, y, Entry, **kwargs)
+    
+    def create_frame(self, x: Real, y: Real, **kwargs) -> Tuple[int, Frame]:
+        '''
+        create frame with cordinates x y
+
+        Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Frame widget while "anchor" will be allocated to the window creation
+        '''
+        return self._create_widget(x, y, Button, **kwargs)
+
+    def create_label(self, x: Real, y: Real, **kwargs) -> Tuple[int, Label]:
+        '''
+        create label with cordinates x y
+
+        Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Label widget while "anchor" will be allocated to the window creation
+        '''
+        return self._create_widget(x, y, Label, **kwargs)
+
+    def create_labelframe(self, x: Real, y: Real, **kwargs) -> Tuple[int, LabelFrame]:
+        '''
+        create label with cordinates x y
+
+        Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the LabelFrame widget while "anchor" will be allocated to the window creation
+        '''
+        return self._create_widget(x, y, LabelFrame, **kwargs)
+
+    def create_listbox(self, x: Real, y: Real, **kwargs) -> Tuple[int, Listbox]:
+        '''
+        create listbox with cordinates x y
+
+        Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Listbox widget while "anchor" will be allocated to the window creation
+        '''
+        return self._create_widget(x, y, Listbox, **kwargs)
+
+    def create_menu(self, x: Real, y: Real, **kwargs) -> Tuple[int, Menu]:
+        '''
+        create menu with cordinates x y
+
+        Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Menu widget while "anchor" will be allocated to the window creation
+        '''
+        return self._create_widget(x, y, Menu, **kwargs)
+
+    def create_pannedwindow(self, x: Real, y: Real, **kwargs) -> Tuple[int, PanedWindow]:
+        '''
+        create panned window with cordinates x y
+
+        Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the PanedWindow widget while "anchor" will be allocated to the window creation
+        '''
+        return self._create_widget(x, y, PanedWindow, **kwargs)
+
+    def create_radiobutton(self, x: Real, y: Real, **kwargs) -> Tuple[int, Radiobutton]:
+        '''
+        create radiobutton with cordinates x y
+
+        Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Radiobutton widget while "anchor" will be allocated to the window creation
+        '''
+        return self._create_widget(x, y, Radiobutton, **kwargs)
+    
+    def create_scale(self, x: Real, y: Real, **kwargs) -> Tuple[int, Scale]:
+        '''
+        create scale with cordinates x y
+
+        Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Scale widget while "anchor" will be allocated to the window creation
+        '''
+        return self._create_widget(x, y, Scale, **kwargs)
+    
+    def create_scale(self, x: Real, y: Real, **kwargs) -> Tuple[int, Scrollbar]:
+        '''
+        create scrollbar with cordinates x y
+
+        Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Scrollbar widget while "anchor" will be allocated to the window creation
+        '''
+        return self._create_widget(x, y, Scrollbar, **kwargs)
+
+    def create_spinbox(self, x: Real, y: Real, **kwargs) -> Tuple[int, Spinbox]:
+        '''
+        create spinbox with cordinates x y
+
+        Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Spinbox widget while "anchor" will be allocated to the window creation
+        '''
+        return self._create_widget(x, y, Spinbox, **kwargs)
+
+    def create_text_widget(self, x: Real, y: Real, **kwargs) -> Tuple[int, Text]:
+        '''
+        create text with cordinates x y
+
+        Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Text widget while "anchor" will be allocated to the window creation
+        '''
+        return self._create_widget(x, y, Text, **kwargs)
+
+    def create_toplevel(self, x: Real, y: Real, **kwargs) -> Tuple[int, Toplevel]:
+        '''
+        create toplevel with cordinates x y
+
+        Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Toplevel widget while "anchor" will be allocated to the window creation
+        '''
+        return self._create_widget(x, y, Toplevel, **kwargs)
+
+
+class CanvasPlus(Canvas, WidgetWindows):
+    '''Improved Canvas widget with more functionality to display graphical elements like lines or text.'''
 
     def create_arrow(self, x1: Real, y1: Real, headLength: Real, headWidth: Real, bodyLength: Real, bodyWidth: Real, **kwargs) -> int:
         '''Create arrow with x1, y1 as the tip; headWith, headLengh as the length and width of the arrowhead; and bodyLength, bodyWidth as the length and width of the arrow body, as well as direction = val (0 by default)'''
@@ -85,6 +194,10 @@ class CanvasPlus(Canvas):
         ]
         
         return self._create('polygon', points, kwargs)
+
+    def create_circle(self, x: Real, y: Real, radius: Real, **kwargs) -> int:
+        '''Create circle with coordinates x, y, radius'''
+        return self._create('oval', [x+radius, y+radius, x-radius, y-radius], kwargs)
 
     def to_polygon(self, obj:int) -> int:
         '''converts rectangle to polygon'''
@@ -140,41 +253,34 @@ class CanvasPlus(Canvas):
         else:
             warnings.warn("WARNING! Canvas element of type " + objType + " is not supported. Rotation may not look as expected.", UnsupportedObjectType)
             self.coords(obj, *newCords)
-        
-    def create_text_input(self, x: Real, y: Real, **kwargs) -> Tuple[int, Entry]:
-        '''create text entry box with cordinates x1 y1
 
-        Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the entry widget while "anchor" will be allocated to the window createion
-        '''
-        entryKwargs = {}
-        windowKwargs = {}
-        for key, val in kwargs:
-            if val in windowProperties:
-                window[key] = val
-            else:
-                entryKwargs[key] = val
+    def create_round_rectangle(self, x1: Real, y1: Real, x2: Real, y2: Real, radius: Real = 25, **kwargs) -> int:
+        '''Create circle with coordinates x1, y1, x2, y2, radius = val (default 25)'''
+        points = [
+            x1+radius, y1,
+            x1+radius, y1,
+            x2-radius, y1,
+            x2-radius, y1,
+            x2, y1,
+            x2, y1+radius,
+            x2, y1+radius,
+            x2, y2-radius,
+            x2, y2-radius,
+            x2, y2,
+            x2-radius, y2,
+            x2-radius, y2,
+            x1+radius, y2,
+            x1+radius, y2,
+            x1, y2, 
+            x1, y2-radius, 
+            x1, y2-radius, 
+            x1, y1+radius,
+            x1, y1+radius, 
+            x1, y1
+        ]
 
-        entry = Entry(self, **entryKwargs)
-        windowKwargs["window"] = entry
-        return self.create_window(x, y, **windowKwargs), entry
-    
-    def create_button(self, x: Real, y: Real, **kwargs) -> Tuple[int, Button]:
-        '''create button with cordinates x1 y1
-
-        Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the entry widget while "anchor" will be allocated to the window createion
-        '''
-        buttonKwargs = {}
-        windowKwargs = {}
-        for key, val in kwargs:
-            if val in windowProperties:
-                window[key] = val
-            else:
-                buttonKwargs[key] = val
-
-        button = Button(self, **buttonKwargs)
-        windowKwargs["window"] = button
-        return self.create_window(x, y, **windowKwargs), button
-
+        kwargs["smooth"] = True
+        return self._create('polygon', points, kwargs)
 
 def _test():
     from tkinter import Tk, StringVar
@@ -196,7 +302,7 @@ def _test():
     canvas.rotate(rect, 150, 150, math.pi/4)
 
     strVar = StringVar()
-    canvas.create_text_input(0, 0)
+    canvas.create_entry(0, 0, anchor = "nw", textvariable=strVar)
     strVar.set("a default value")
 
     canvas.update()
