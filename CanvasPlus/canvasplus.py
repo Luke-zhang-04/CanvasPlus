@@ -1,6 +1,6 @@
 '''
 Luke-zhang-04
-Canvas Plus v1.1.0 (https://github.com/Luke-zhang-04/CanvasPlus)
+Canvas Plus v1.1.1 (https://github.com/Luke-zhang-04/CanvasPlus)
 Copyright (C) 2020 Luke-zhang-04
 
 This program is free software: you can redistribute it and/or modify
