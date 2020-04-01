@@ -10,11 +10,11 @@ the Free Software Foundation, either version 3 of the License, or
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see https://github.com/Luke-zhang-04/CanvasPlus/blob/master/LICENSE.
+along with this program. If not, see https://github.com/Luke-zhang-04/CanvasPlus/blob/master/LICENSE.
 '''
 
 #tkinter
@@ -30,10 +30,12 @@ import cmath, math
 from numbers import Real
 
 #typing
-from typing import Tuple
+from typing import Tuple, Union, List, Callable, Dict
 
 #warnings
 import warnings
+
+print("Hello from CanvasPlus")
 
 class Error(Exception):
    '''Base class for other exceptions'''
@@ -50,6 +52,7 @@ class UnsupportedObjectType(UserWarning):
 class InvalidObjectType(Error):
     '''raised when object type not supported'''
     pass
+
 
 class WidgetWindows:
     '''Class for createing widgets as windows within the canvas'''
@@ -170,6 +173,19 @@ class WidgetWindows:
 class CanvasPlus(Canvas, WidgetWindows):
     '''Improved Canvas widget with more functionality to display graphical elements like lines or text.'''
 
+    def clone(self, tagOrId: int, *args: List[int]) -> int:
+        '''clones tagOrId and places is at optional coordinates, or places is on top of the first object'''
+        if len(args) == 0:
+            args = self.coords(tagOrId)
+        
+        output = self.get_attributes(tagOrId)
+        
+        return self._create(
+            self.tk.call(self._w, 'type', tagOrId),
+            args,
+            output
+        )
+        
     def create_arrow(self, x1: Real, y1: Real, headLength: Real, headWidth: Real, bodyLength: Real, bodyWidth: Real, **kwargs) -> int:
         '''Create arrow with x1, y1 as the tip; headWith, headLengh as the length and width of the arrowhead; and bodyLength, bodyWidth as the length and width of the arrow body, as well as direction = val (0 by default)'''
         
@@ -188,61 +204,6 @@ class CanvasPlus(Canvas, WidgetWindows):
     def create_circle(self, x: Real, y: Real, radius: Real, **kwargs) -> int:
         '''Create circle with coordinates x, y, radius'''
         return self._create('oval', [x+radius, y+radius, x-radius, y-radius], kwargs)
-
-    def to_polygon(self, obj:int) -> int:
-        '''converts rectangle to polygon'''
-        properties = self.itemconfig(obj)
-        output = {
-            key: properties[key][-1] for key in properties
-        }
-        
-        cords = [self.tk.getdouble(x) for x in self.tk.splitlist(self.tk.call((self._w, 'coords') + tuple([obj])))]
-
-        if output["width"] == '0.0':
-            output["outline"] = ''
-
-        if self.tk.call(self._w, 'type', obj) == "rectangle":
-            newCords = [
-                cords[0], cords[1],
-                cords[1], cords[2],
-                cords[2], cords[3],
-                cords[3], cords[0]
-            ]
-        else:
-            raise InvalidObjectType("Invalid canvas element \"" + self.tk.call(self._w, 'type', obj) + "\"")
-
-        self.tk.call((self._w, 'delete') + tuple([obj]))
-
-        return self._create('polygon', newCords, output)
-
-    poly = to_polygon
-
-    def rotate(self, obj: int, x: Real, y: Real, amount: Real, unit: str = "rad") -> None:
-        '''rotate obj on axis x, y by amount in degrees or radians clockwise'''
-        if unit in ("d", "deg", "degree", "degrees"):
-            amount *= math.pi/180 #convert to radians
-        elif unit in ("r", "rad", "radian", "radians"):
-            pass
-        else:
-            raise InvalidUnitError("Invalid unit \"" + unit + "\"")
-        
-        angle = cmath.exp(amount*1j)
-        offset = complex(x, y)
-        newCords = []
-        cords = [
-            (self.coords(obj)[i], self.coords(obj)[i+1]) for i in range(0, len(self.coords(obj)), 2)
-        ]
-        for xPt, yPt in cords:
-            num = angle * (complex(xPt, yPt) - offset) + offset
-            newCords.append(num.real)
-            newCords.append(num.imag)
-        
-        objType = self.tk.call(self._w, 'type', obj)
-        if objType == "polygon":
-            self.coords(obj, *newCords)
-        else:
-            warnings.warn("WARNING! Canvas element of type " + objType + " is not supported. Rotation may not look as expected.", UnsupportedObjectType)
-            self.coords(obj, *newCords)
 
     def create_round_rectangle(self, x1: Real, y1: Real, x2: Real, y2: Real, radius: Real = 25, **kwargs) -> int:
         '''Create circle with coordinates x1, y1, x2, y2, radius = val (default 25)'''
@@ -272,6 +233,100 @@ class CanvasPlus(Canvas, WidgetWindows):
         kwargs["smooth"] = True
         return self._create('polygon', points, kwargs)
 
+    def get_attributes(self, tagOrId: int) -> Dict:
+        '''Returns all properties of tagOrId'''
+        properties = self.itemconfig(tagOrId)
+        return {key: properties[key][-1] for key in properties}
+
+    get_attr = get_attributes
+
+    def __iter__(self):
+        pass
+
+    def to_polygon(self, tagOrId: int) -> int:
+        '''converts rectangle to polygon'''
+        output = self.get_attributes(tagOrId)
+
+        cords = [self.tk.getdouble(x) for x in self.tk.splitlist(self.tk.call((self._w, 'coords') + tuple([tagOrId])))]
+
+        if output["width"] == '0.0':
+            output["outline"] = ''
+
+        if self.tk.call(self._w, 'type', tagOrId) == "rectangle":
+            newCords = [
+                cords[0], cords[1],
+                cords[1], cords[2],
+                cords[2], cords[3],
+                cords[3], cords[0]
+            ]
+        else:
+            raise InvalidObjectType("Invalid canvas element \"" + self.tk.call(self._w, 'type', tagOrId) + "\"")
+
+        self.tk.call((self._w, 'delete') + tuple([tagOrId]))
+
+        return self._create('polygon', newCords, output)
+
+    poly = to_polygon
+
+    def rotate(self, tagOrId: int, x: Real, y: Real, amount: Real, unit: str = "rad", warn: bool = True) -> None:
+        '''rotate obj on axis x, y by amount in degrees or radians clockwise'''
+        if unit in ("d", "deg", "degree", "degrees"):
+            amount *= math.pi/180 #convert to radians
+        elif unit in ("r", "rad", "radian", "radians"):
+            pass
+        else:
+            raise InvalidUnitError("Invalid unit \"" + unit + "\"")
+        
+        angle = cmath.exp(amount*1j)
+        offset = complex(x, y)
+        newCords = []
+        cords = [
+            (self.coords(tagOrId)[i], self.coords(tagOrId)[i+1]) for i in range(0, len(self.coords(tagOrId)), 2)
+        ]
+        for xPt, yPt in cords:
+            num = angle * (complex(xPt, yPt) - offset) + offset
+            newCords.append(num.real)
+            newCords.append(num.imag)
+        
+        objType = self.tk.call(self._w, 'type', tagOrId)
+        if objType == "polygon":
+            self.coords(tagOrId, *newCords)
+        else:
+            if (warn):
+                warnings.warn(
+                    "WARNING! Canvas element of type " + objType + " is not supported. Rotation may not look as expected. " + 
+                    "Use the to_polygon() method to turn the " + objType + " into a polygon.",
+                    UnsupportedObjectType
+                )
+            self.coords(tagOrId, *newCords)
+
+    def tags_bind(
+        self, tagsOrIds: Union[int, Tuple[int], List[int]], sequences: Union[str, Tuple[str], List[str]] = None,
+        funcs = Union[Callable, Tuple[Callable], List[Callable]], add = None) -> Union[str, List[str]]:
+        '''Binds either multiple tags to one function, or multiple tags to multiple functions with matching indicies in one function
+        
+        i.e (tag1, tag2, tag3), func1 will bind tag1, tag2, tag3 into fun1, while (tag1, tag2, tag3), (func1, func2, func3) will bind tag1 to func1, tag2 to func2, tag3 to func3.
+        '''
+        if type(tagsOrIds) == int and callable(funcs): #normal tag_bind
+            return self._bind((self._w, 'bind', tagsOrIds),sequences, funcs, add)
+        else:
+            bindings = []
+            if type(funcs) not in [list, tuple]:
+                funcs = tuple([funcs])
+            if type(sequences) not in [list, tuple]:
+                sequences = tuple([sequences])
+
+            for index, obj in enumerate(tagsOrIds):
+                bindings.append(
+                        self._bind((self._w, 'bind', obj),
+                        sequences[index%len(sequences)],
+                        funcs[index%len(funcs)],
+                        add
+                    )
+                )
+            return bindings
+
+
 def _test():
     #Imports
     from tkinter import Tk, StringVar, DoubleVar
@@ -296,6 +351,7 @@ def _test():
 
     #create a rectangle and convert it to a polygon; then rotate it by pi/4 radians (45 degrees)
     rect = canvas.create_rectangle(100, 100, 200, 200, fill = "#f7a8c6", width = 0)
+    canvas.clone(rect)
     rect = canvas.poly(rect)
     canvas.rotate(rect, 150, 150, math.pi/4)
 
@@ -321,13 +377,10 @@ def _test():
         5, 75, font = ("Times", "24"), fg = "black", bg = "green", text = "Hello World!", anchor = "nw"
     )
 
-    #create a scale
-    canvas.create_scale(
-        5, 100, anchor = "nw", bg = "yellow", activebackground = "gold", from_ = 0, to = 100
-    )
-
     canvas.update()
     canvas.mainloop()
 
 if __name__ == "__main__":
     _test()
+
+print("Imported successfully")
