@@ -5,7 +5,7 @@
 [![GitHub release](https://img.shields.io/github/release/Luke-zhang-04/CanvasPlus)](https://GitHub.com/Luke-zhang-04/CanvasPlus/releases/)
 [![GitHub license](https://img.shields.io/github/license/Luke-zhang-04/CanvasPlus)](https://github.com/Luke-zhang-04/CanvasPlus/blob/master/LICENSE)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/CanvasPlus.svg)](https://pypi.python.org/pypi/CanvasPlus/)
-
+[![Documentation Status](https://readthedocs.org/projects/canvasplus/badge/?version=latest)](https://canvasplus.readthedocs.io/en/latest/?badge=latest)
 
 An improved Canvas widget for tkinter with more functionality to display graphical elements like lines or text. 
 

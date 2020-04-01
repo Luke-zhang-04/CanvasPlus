@@ -1,6 +1,6 @@
 '''
 Luke-zhang-04
-Canvas Plus v1.1.1 (https://github.com/Luke-zhang-04/CanvasPlus)
+Canvas Plus v1.1.2 (https://github.com/Luke-zhang-04/CanvasPlus)
 Copyright (C) 2020 Luke-zhang-04
 
 This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@ along with this program.  If not, see https://github.com/Luke-zhang-04/CanvasPlu
 #tkinter
 from tkinter import (
     Canvas, Button, Checkbutton, Entry, Frame, Label, LabelFrame, Listbox,
-    Menu, PanedWindow, Radiobutton, Scale, Scrollbar, Spinbox, Text, Toplevel
+    PanedWindow, Radiobutton, Scale, Scrollbar, Spinbox
 )
 
 #complex numbers and stuff
@@ -126,15 +126,7 @@ class WidgetWindows:
         '''
         return self._create_widget(x, y, Listbox, **kwargs)
 
-    def create_menu(self, x: Real, y: Real, **kwargs) -> Tuple[int, Menu]:
-        '''
-        create menu with cordinates x y
-
-        Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Menu widget while "anchor" will be allocated to the window creation
-        '''
-        return self._create_widget(x, y, Menu, **kwargs)
-
-    def create_pannedwindow(self, x: Real, y: Real, **kwargs) -> Tuple[int, PanedWindow]:
+    def create_panedwindow(self, x: Real, y: Real, **kwargs) -> Tuple[int, PanedWindow]:
         '''
         create panned window with cordinates x y
 
@@ -173,22 +165,6 @@ class WidgetWindows:
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Spinbox widget while "anchor" will be allocated to the window creation
         '''
         return self._create_widget(x, y, Spinbox, **kwargs)
-
-    def create_text_widget(self, x: Real, y: Real, **kwargs) -> Tuple[int, Text]:
-        '''
-        create text with cordinates x y
-
-        Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Text widget while "anchor" will be allocated to the window creation
-        '''
-        return self._create_widget(x, y, Text, **kwargs)
-
-    def create_toplevel(self, x: Real, y: Real, **kwargs) -> Tuple[int, Toplevel]:
-        '''
-        create toplevel with cordinates x y
-
-        Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Toplevel widget while "anchor" will be allocated to the window creation
-        '''
-        return self._create_widget(x, y, Toplevel, **kwargs)
 
 
 class CanvasPlus(Canvas, WidgetWindows):
