@@ -170,7 +170,41 @@ class WidgetWindows:
         return self._create_widget(x, y, Spinbox, **kwargs)
 
 
-class CanvasPlus(Canvas, WidgetWindows):
+class Transformations:
+    def rotate(self, tagOrId: Union[int, str], x: Real, y: Real, amount: Real, unit: str = "rad", warn: bool = True) -> None:
+        '''rotate obj on axis x, y by amount in degrees or radians clockwise'''
+        if unit in ("d", "deg", "degree", "degrees"):
+            amount *= math.pi/180 #convert to radians
+        elif unit in ("r", "rad", "radian", "radians"):
+            pass
+        else:
+            raise InvalidUnitError("Invalid unit \"" + unit + "\"")
+        
+        angle = cmath.exp(amount*1j)
+        offset = complex(x, y)
+        newCords = []
+        cords = [
+            (self.coords(tagOrId)[i], self.coords(tagOrId)[i+1]) for i in range(0, len(self.coords(tagOrId)), 2)
+        ]
+        for xPt, yPt in cords:
+            num = angle * (complex(xPt, yPt) - offset) + offset
+            newCords.append(num.real)
+            newCords.append(num.imag)
+        
+        objType = self.tk.call(self._w, 'type', tagOrId)
+        if objType == "polygon":
+            self.coords(tagOrId, *newCords)
+        else:
+            if (warn):
+                warnings.warn(
+                    "WARNING! Canvas element of type " + objType + " is not supported. Rotation may not look as expected. " + 
+                    "Use the to_polygon() method to turn the " + objType + " into a polygon.",
+                    UnsupportedObjectType
+                )
+            self.coords(tagOrId, *newCords)
+
+
+class CanvasPlus(Canvas, WidgetWindowsm, Transformations):
     '''Improved Canvas widget with more functionality to display graphical elements like lines or text.'''
 
     def clone(self, tagOrId: Union[int, str], *args: List[int]) -> int:
@@ -240,9 +274,9 @@ class CanvasPlus(Canvas, WidgetWindows):
 
     get_attr = get_attributes
 
-    def __iter__(self, tagOrId: Union[int, str] = None) -> iter:
+    def __iter__(self) -> iter:
         '''Creates iterator of everything on the canvas'''
-        return iter(self.find_withtag(tagOrId)) if tagOrId else iter(self.find_all())
+        return iter(self.find_all())
 
     def to_polygon(self, tagOrId: Union[int, str]) -> int:
         '''converts rectangle to polygon'''
@@ -268,38 +302,6 @@ class CanvasPlus(Canvas, WidgetWindows):
         return self._create('polygon', newCords, output)
 
     poly = to_polygon
-
-    def rotate(self, tagOrId: Union[int, str], x: Real, y: Real, amount: Real, unit: str = "rad", warn: bool = True) -> None:
-        '''rotate obj on axis x, y by amount in degrees or radians clockwise'''
-        if unit in ("d", "deg", "degree", "degrees"):
-            amount *= math.pi/180 #convert to radians
-        elif unit in ("r", "rad", "radian", "radians"):
-            pass
-        else:
-            raise InvalidUnitError("Invalid unit \"" + unit + "\"")
-        
-        angle = cmath.exp(amount*1j)
-        offset = complex(x, y)
-        newCords = []
-        cords = [
-            (self.coords(tagOrId)[i], self.coords(tagOrId)[i+1]) for i in range(0, len(self.coords(tagOrId)), 2)
-        ]
-        for xPt, yPt in cords:
-            num = angle * (complex(xPt, yPt) - offset) + offset
-            newCords.append(num.real)
-            newCords.append(num.imag)
-        
-        objType = self.tk.call(self._w, 'type', tagOrId)
-        if objType == "polygon":
-            self.coords(tagOrId, *newCords)
-        else:
-            if (warn):
-                warnings.warn(
-                    "WARNING! Canvas element of type " + objType + " is not supported. Rotation may not look as expected. " + 
-                    "Use the to_polygon() method to turn the " + objType + " into a polygon.",
-                    UnsupportedObjectType
-                )
-            self.coords(tagOrId, *newCords)
 
     def tags_bind(
         self, tagsOrIds: Union[Union[int, str], Tuple[Union[int, str]], List[Union[int, str]]],

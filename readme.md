@@ -5,7 +5,6 @@
 [![GitHub release](https://img.shields.io/github/release/Luke-zhang-04/CanvasPlus)](https://GitHub.com/Luke-zhang-04/CanvasPlus/releases/)
 [![GitHub license](https://img.shields.io/github/license/Luke-zhang-04/CanvasPlus)](https://github.com/Luke-zhang-04/CanvasPlus/blob/master/LICENSE)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/CanvasPlus.svg)](https://pypi.python.org/pypi/CanvasPlus/)
-[![Documentation Status](https://readthedocs.org/projects/canvasplus/badge/?version=latest)](https://canvasplus.readthedocs.io/en/latest/?badge=latest)
 
 An improved Canvas widget for tkinter with more functionality to display graphical elements like lines or text. 
 
@@ -35,7 +34,7 @@ For complete documentation, head over the [the wiki](https://github.com/Luke-zha
 ### Example: ###
 ```python
 #Imports
-from CanvasPlus import CanvasPlus
+from CanvasPlus import CanvasPLus
 from tkinter import Tk, StringVar, DoubleVar
 import math
 
@@ -45,11 +44,11 @@ canvas = CanvasPlus(root, width=800, height=800, background = "white")
 canvas.pack()
 
 #create circle function
-canvas.create_circle(300, 300, 100, fill = "black", outline = "green", width = 3)
+canvas.create_circle(300, 600, 100, fill = "black", outline = "green", width = 3)
 
 #create rounded rectangle function
 canvas.create_round_rectangle(
-    400, 400, 500, 500, radius = 75, fill = "blue", outline = "orange", width = 5
+    400, 550, 500, 650, radius = 75, fill = "blue", outline = "orange", width = 5
 )   
 
 #create arrow function and rotate it to by 310 degrees clockwise
@@ -57,14 +56,15 @@ arrow = canvas.create_arrow(600, 600, 50, 50, 150, 20, fill = "grey", outline = 
 canvas.rotate(arrow, 600, 600, 310, unit="deg")
 
 #create a rectangle and convert it to a polygon; then rotate it by pi/4 radians (45 degrees)
-rect = canvas.create_rectangle(100, 100, 200, 200, fill = "#f7a8c6", width = 0)
+rect = canvas.create_rectangle(100, 550, 200, 650, fill = "#f7a8c6", width = 0)
+canvas.clone(rect)
 rect = canvas.poly(rect)
-canvas.rotate(rect, 150, 150, math.pi/4)
+canvas.rotate(rect, 150, 600, math.pi/4)
 
 #create an entry and set it's default value
 content = StringVar()
 canvas.create_entry(0, 0, anchor = "nw", textvariable = content, fg = "blue", bg = "gold")
-content.set("a default value")
+content.set("This is CanvasPlus v1.1.2")
 
 #create button to print the value in the previously cretaed entry
 canvas.create_button(
@@ -80,16 +80,11 @@ checkbutton.toggle()
 
 #create a label
 canvas.create_label(
-    5, 75, font = ("Times", "24"), fg = "black", bg = "green", text = "Hello World!", anchor = "nw"
-)
-
-#create a scale
-canvas.create_scale(
-    5, 100, anchor = "nw", bg = "yellow", activebackground = "gold", from_ = 0, to = 100
+    5, 75, font = ("Times", "24"), fg = "black", bg = "green", text = "By Luke-zhang-04", anchor = "nw"
 )
 
 canvas.update()
 canvas.mainloop()
 ```
 
-![Screen Shot 2020-03-31 at 2 44 02 PM](https://user-images.githubusercontent.com/55749227/78063360-12567f00-735e-11ea-8b4e-066e9e681a92.png)
+![Screen Shot 2020-04-01 at 11 40 37 AM](https://user-images.githubusercontent.com/55749227/78157137-9ca9ec00-740d-11ea-8f9b-7062ff190763.png)
