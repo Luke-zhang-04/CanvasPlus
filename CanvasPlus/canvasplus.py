@@ -173,7 +173,7 @@ class WidgetWindows:
 class CanvasPlus(Canvas, WidgetWindows):
     '''Improved Canvas widget with more functionality to display graphical elements like lines or text.'''
 
-    def clone(self, tagOrId: int, *args: List[int]) -> int:
+    def clone(self, tagOrId: Union[int, str], *args: List[int]) -> int:
         '''clones tagOrId and places is at optional coordinates, or places is on top of the first object'''
         if len(args) == 0:
             args = self.coords(tagOrId)
@@ -233,17 +233,18 @@ class CanvasPlus(Canvas, WidgetWindows):
         kwargs["smooth"] = True
         return self._create('polygon', points, kwargs)
 
-    def get_attributes(self, tagOrId: int) -> Dict:
+    def get_attributes(self, tagOrId: Union[int, str]) -> Dict:
         '''Returns all properties of tagOrId'''
         properties = self.itemconfig(tagOrId)
         return {key: properties[key][-1] for key in properties}
 
     get_attr = get_attributes
 
-    def __iter__(self):
-        pass
+    def __iter__(self, tagOrId: Union[int, str] = None) -> iter:
+        '''Creates iterator of everything on the canvas'''
+        return iter(self.find_withtag(tagOrId)) if tagOrId else iter(self.find_all())
 
-    def to_polygon(self, tagOrId: int) -> int:
+    def to_polygon(self, tagOrId: Union[int, str]) -> int:
         '''converts rectangle to polygon'''
         output = self.get_attributes(tagOrId)
 
@@ -268,7 +269,7 @@ class CanvasPlus(Canvas, WidgetWindows):
 
     poly = to_polygon
 
-    def rotate(self, tagOrId: int, x: Real, y: Real, amount: Real, unit: str = "rad", warn: bool = True) -> None:
+    def rotate(self, tagOrId: Union[int, str], x: Real, y: Real, amount: Real, unit: str = "rad", warn: bool = True) -> None:
         '''rotate obj on axis x, y by amount in degrees or radians clockwise'''
         if unit in ("d", "deg", "degree", "degrees"):
             amount *= math.pi/180 #convert to radians
@@ -301,7 +302,8 @@ class CanvasPlus(Canvas, WidgetWindows):
             self.coords(tagOrId, *newCords)
 
     def tags_bind(
-        self, tagsOrIds: Union[int, Tuple[int], List[int]], sequences: Union[str, Tuple[str], List[str]] = None,
+        self, tagsOrIds: Union[Union[int, str], Tuple[Union[int, str]], List[Union[int, str]]],
+        sequences: Union[str, Tuple[str], List[str]] = None,
         funcs = Union[Callable, Tuple[Callable], List[Callable]], add = None) -> Union[str, List[str]]:
         '''Binds either multiple tags to one function, or multiple tags to multiple functions with matching indicies in one function
         
