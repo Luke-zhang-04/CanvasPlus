@@ -1,5 +1,5 @@
 # Canvas Plus #
-## V1.1.2 ##
+## V1.1.3 ##
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 [![PyPI version shields.io](https://img.shields.io/pypi/v/CanvasPlus.svg)](https://pypi.python.org/pypi/CanvasPlus/)
 [![GitHub release](https://img.shields.io/github/release/Luke-zhang-04/CanvasPlus)](https://GitHub.com/Luke-zhang-04/CanvasPlus/releases/)
@@ -64,7 +64,7 @@ canvas.rotate(rect, 150, 600, math.pi/4)
 #create an entry and set it's default value
 content = StringVar()
 canvas.create_entry(0, 0, anchor = "nw", textvariable = content, fg = "blue", bg = "gold")
-content.set("This is CanvasPlus v1.1.2")
+content.set("This is CanvasPlus v1.1.3")
 
 #create button to print the value in the previously cretaed entry
 canvas.create_button(

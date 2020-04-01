@@ -1,6 +1,6 @@
 '''
 Luke-zhang-04
-Canvas Plus v1.1.2 (https://github.com/Luke-zhang-04/CanvasPlus)
+Canvas Plus v1.1.3 (https://github.com/Luke-zhang-04/CanvasPlus)
 Copyright (C) 2020 Luke-zhang-04
 
 This program is free software: you can redistribute it and/or modify
@@ -362,7 +362,7 @@ def _test():
     #create an entry and set it's default value
     content = StringVar()
     canvas.create_entry(0, 0, anchor = "nw", textvariable = content, fg = "blue", bg = "gold")
-    content.set("This is CanvasPlus v1.1.2")
+    content.set("This is CanvasPlus v1.1.3")
 
     #create button to print the value in the previously cretaed entry
     canvas.create_button(
