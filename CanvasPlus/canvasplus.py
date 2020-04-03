@@ -35,6 +35,9 @@ from typing import Tuple, Union, List, Callable, Dict
 #warnings
 import warnings
 
+#regex
+import re
+
 print("Hello from CanvasPlus")
 
 class Error(Exception):
@@ -51,6 +54,10 @@ class UnsupportedObjectType(UserWarning):
 
 class InvalidObjectType(Error):
     '''raised when object type not supported'''
+    pass
+
+class InvalidEquation(Error):
+    '''raised when euqtion of a line is invalid'''
     pass
 
 
@@ -170,7 +177,80 @@ class WidgetWindows:
         return self._create_widget(x, y, Spinbox, **kwargs)
 
 
+class AnalyticGeometry:
+    '''perform basic analytic geometry'''
+
+    @staticmethod
+    def makeEqn(slope: Union[float, int, None], *pt) -> Dict:
+        '''gets the parts of an equation'''
+        properties = {}
+        if not slope:
+            properties = {
+                "m": None,
+                "x": pt[0]
+            }
+        
+        elif slope == 0:
+            properties = {
+                "m": 0,
+                "y": pt[1]
+            }
+        
+        else:
+            properties = {
+                "m": slope,
+                "b": pt[1]-slope*pt[0]
+            }
+
+        return properties
+
+    @staticmethod
+    def perpendicularSlope(eqn: Dict) -> Union[float, int, None]:
+        '''gets the perpendicular slope of an equation'''
+        if "m" not in eqn:
+            if "y" in eqn:
+                perpendicular = None
+            elif "x" in eqn:
+                perpendicular = 0
+        else:
+            if float(eqn["m"]) == 0: perpendicular = None
+            else: perpendicular = -(1/float(eqn["m"]))
+        return perpendicular
+
+    @staticmethod
+    def getPOI(eqn1: Dict, eqn2: Dict) -> Tuple[Union[float, int]]:
+        '''gets the point of intersection between two lines'''
+        poi = ()
+
+        flat = bool
+        if "x" in eqn1:
+            flat = eqn1["x"] in (None, 0) and eqn2["y"] in (None, 0)
+        elif "y" in eqn1:
+            flat = eqn2["m"] in (None, 0) and eqn1["m"] in (None, 0)
+
+        print(eqn1, eqn2)
+
+        if flat:
+            if "x" in eqn1:
+                poi = float(eqn1["x"]), float(eqn2["y"])
+            else:
+                poi = float(eqn2["x"]), float(eqn1["y"])
+        else:
+            if "b" not in eqn1: eqn1["b"] = 0
+            if "b" not in eqn2: eqn2["b"] = 0
+            x = (
+                (float(eqn1["b"])-float(eqn2["b"])) /
+                (float(eqn2["m"])-float(eqn1["m"]))
+            )
+            y = float(eqn1["m"])*x + float(eqn1["b"])
+            poi = (x, y)
+
+        return poi
+
+
 class Transformations:
+    '''define transformation methods'''
+
     def rotate(self, tagOrId: Union[int, str], x: Real, y: Real, amount: Real, unit: str = "rad", warn: bool = True) -> None:
         '''rotate obj on axis x, y by amount in degrees or radians clockwise'''
         if unit in ("d", "deg", "degree", "degrees"):
@@ -203,8 +283,61 @@ class Transformations:
                 )
             self.coords(tagOrId, *newCords)
 
+    def flip(self, tagOrId: Union[int, str], **eqn: Dict) -> Tuple[Union[float, int]]:
+        '''flips tagOrId on line eqn. eqn should be either {y: val}, {x: val}, or {m: val, b: val} m being slope and b being y-intercept'''
+        if len(eqn) == 0: raise InvalidEquation("Empty equation")
 
-class CanvasPlus(Canvas, WidgetWindowsm, Transformations):
+        for key, _ in eqn.items():
+            if key != "x": eqn[key] = float(eqn[key]) * -1
+
+        if "x" in eqn and "m" not in eqn:
+            eqn["m"] = None
+        elif "y" in eqn and "m" not in eqn:
+            eqn["m"] = 0
+
+        all_cords = self.coords(tagOrId)
+        cords = [
+            (all_cords[i], all_cords[i+1]) for i in range(0, len(all_cords), 2)
+        ]
+
+        #perpendicular slope
+        perSlope = AnalyticGeometry.perpendicularSlope(eqn)
+
+        #perpendicular eqnations
+        perEqns = [AnalyticGeometry.makeEqn(perSlope, i[0], -i[1]) for i in cords]
+
+        #Points of intersect
+        POIs = [AnalyticGeometry.getPOI(eqn, i) for i in perEqns]
+        print(POIs, cords)
+
+        newPts = [] #new points
+
+        for i in range(len(POIs)): #get new points
+            newPts.append((
+                POIs[i][0]-(cords[i][0]-POIs[i][0]),
+                -(POIs[i][1])+(cords[i][1]-POIs[i][1])
+            ))
+        
+        newCords = []
+        for i in newPts:
+            newCords.append(i[0])
+            newCords.append(i[1])
+        
+        self.coords(tagOrId, *newCords)
+        print(self.coords(tagOrId), newCords, newPts)
+        return newPts
+        
+
+    reflect = flip
+
+    def resize(self, tagOrId: Union[int, str], scale: Real) -> None:
+        '''Resizes tagOrId by scale'''
+        pass
+    
+    size = resize
+
+
+class CanvasPlus(Canvas, WidgetWindows, Transformations):
     '''Improved Canvas widget with more functionality to display graphical elements like lines or text.'''
 
     def clone(self, tagOrId: Union[int, str], *args: List[int]) -> int:
@@ -340,7 +473,6 @@ def _test():
     root = Tk()
     canvas = CanvasPlus(root, width=800, height=800, background = "white")
     canvas.pack()
-
     #create circle function
     canvas.create_circle(300, 600, 100, fill = "black", outline = "green", width = 3)
     
@@ -380,6 +512,10 @@ def _test():
     canvas.create_label(
         5, 75, font = ("Times", "24"), fg = "black", bg = "green", text = "By Luke-zhang-04", anchor = "nw"
     )
+
+    aPrime = canvas.create_polygon(500, 15, 550, 20, 600, 15, 600, 5, 500, 5, fill = "yellow", outline = "black")
+    a = canvas.clone(aPrime)
+    canvas.flip(a, y = 20)
 
     canvas.update()
     canvas.mainloop()
