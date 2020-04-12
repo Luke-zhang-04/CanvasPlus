@@ -57,7 +57,6 @@ import math
 root = Tk()
 canvas = CanvasPlus(root, width=800, height=800, background = "white")
 canvas.pack()
-
 #create circle function
 canvas.create_circle(300, 600, 100, fill = "black", outline = "green", width = 3)
 
@@ -98,8 +97,14 @@ canvas.create_label(
     5, 75, font = ("Times", "24"), fg = "black", bg = "green", text = "By Luke-zhang-04", anchor = "nw"
 )
 
+#flip example
+aPrime = canvas.create_polygon(500, 10, 500, 20, 550, 25, 600, 20, 600, 10, fill = "yellow", outline = "black")
+a = canvas.clone(aPrime)
+canvas.flip(a, m = .5, b = -200)
+
+
 canvas.update()
 canvas.mainloop()
 ```
 
-![Screen Shot 2020-04-01 at 11 40 37 AM](https://user-images.githubusercontent.com/55749227/78157137-9ca9ec00-740d-11ea-8f9b-7062ff190763.png)
+![Screen Shot 2020-04-12 at 4 40 53 PM](https://user-images.githubusercontent.com/55749227/79079310-60fc0580-7cdc-11ea-9452-ab0d625fb549.png)

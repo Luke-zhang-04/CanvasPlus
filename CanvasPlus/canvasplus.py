@@ -181,7 +181,7 @@ class AnalyticGeometry:
     '''perform basic analytic geometry'''
 
     @staticmethod
-    def makeEqn(slope: Union[float, int, None], *pt) -> Dict:
+    def make_eqn(slope: Union[float, int, None], *pt) -> Dict:
         '''gets the parts of an equation'''
         properties = {}
         if slope == None: #got errors becase 0 evaulates to False
@@ -205,7 +205,7 @@ class AnalyticGeometry:
         return properties
 
     @staticmethod
-    def perpendicularSlope(eqn: Dict) -> Union[float, int, None]:
+    def perpendicular_slope(eqn: Dict) -> Union[float, int, None]:
         '''gets the perpendicular slope of an equation'''
         if "m" not in eqn or not eqn["m"]:
             if "y" in eqn:
@@ -218,7 +218,7 @@ class AnalyticGeometry:
         return perpendicular
 
     @staticmethod
-    def getPOI(eqn1: Dict, eqn2: Dict) -> Tuple[Union[float, int]]:
+    def get_poi(eqn1: Dict, eqn2: Dict) -> Tuple[Union[float, int]]:
         '''gets the point of intersection between two lines'''
         poi = ()
 
@@ -301,13 +301,13 @@ class Transformations:
         ]
 
         #perpendicular slope
-        perSlope = AnalyticGeometry.perpendicularSlope(eqn)
+        perSlope = AnalyticGeometry.perpendicular_slope(eqn)
 
         #perpendicular eqnations
-        perEqns = [AnalyticGeometry.makeEqn(perSlope, i[0], -i[1]) for i in cords]
+        perEqns = [AnalyticGeometry.make_eqn(perSlope, i[0], -i[1]) for i in cords]
 
         #Points of intersect
-        POIs = [AnalyticGeometry.getPOI(eqn, i) for i in perEqns]
+        POIs = [AnalyticGeometry.get_poi(eqn, i) for i in perEqns]
         print(POIs, cords, "POI, CORDS")
 
         newPts = [] #new points
