@@ -184,7 +184,7 @@ class AnalyticGeometry:
     def makeEqn(slope: Union[float, int, None], *pt) -> Dict:
         '''gets the parts of an equation'''
         properties = {}
-        if not slope:
+        if slope == None: #got errors becase 0 evaulates to False
             properties = {
                 "m": None,
                 "x": pt[0]
@@ -207,7 +207,7 @@ class AnalyticGeometry:
     @staticmethod
     def perpendicularSlope(eqn: Dict) -> Union[float, int, None]:
         '''gets the perpendicular slope of an equation'''
-        if "m" not in eqn:
+        if "m" not in eqn or not eqn["m"]:
             if "y" in eqn:
                 perpendicular = None
             elif "x" in eqn:
@@ -222,9 +222,9 @@ class AnalyticGeometry:
         '''gets the point of intersection between two lines'''
         poi = ()
 
-        flat = bool
+        flat = False
         if "x" in eqn1:
-            flat = eqn1["x"] in (None, 0) and eqn2["y"] in (None, 0)
+            flat = eqn1["m"] in (None, 0) and eqn2["m"] in (None, 0)
         elif "y" in eqn1:
             flat = eqn2["m"] in (None, 0) and eqn1["m"] in (None, 0)
 
@@ -308,14 +308,14 @@ class Transformations:
 
         #Points of intersect
         POIs = [AnalyticGeometry.getPOI(eqn, i) for i in perEqns]
-        print(POIs, cords)
+        print(POIs, cords, "POI, CORDS")
 
         newPts = [] #new points
 
         for i in range(len(POIs)): #get new points
             newPts.append((
                 POIs[i][0]-(cords[i][0]-POIs[i][0]),
-                -(POIs[i][1])+(cords[i][1]-POIs[i][1])
+                (-(POIs[i][1])-cords[i][1])-POIs[i][1]
             ))
         
         newCords = []
@@ -324,7 +324,7 @@ class Transformations:
             newCords.append(i[1])
         
         self.coords(tagOrId, *newCords)
-        print(self.coords(tagOrId), newCords, newPts)
+        print("\n", self.coords(tagOrId), newCords, newPts)
         return newPts
         
 
@@ -437,9 +437,8 @@ class CanvasPlus(Canvas, WidgetWindows, Transformations):
     poly = to_polygon
 
     def tags_bind(
-        self, tagsOrIds: Union[Union[int, str], Tuple[Union[int, str]], List[Union[int, str]]],
-        sequences: Union[str, Tuple[str], List[str]] = None,
-        funcs = Union[Callable, Tuple[Callable], List[Callable]], add = None) -> Union[str, List[str]]:
+        self, tagsOrIds: Union[int, str, Tuple], sequences: Union[str, Tuple] = None,
+        funcs = Union[Callable, Tuple], add: bool = None) -> Union[str, List[str]]:
         '''Binds either multiple tags to one function, or multiple tags to multiple functions with matching indicies in one function
         
         i.e (tag1, tag2, tag3), func1 will bind tag1, tag2, tag3 into fun1, while (tag1, tag2, tag3), (func1, func2, func3) will bind tag1 to func1, tag2 to func2, tag3 to func3.
@@ -513,14 +512,14 @@ def _test():
         5, 75, font = ("Times", "24"), fg = "black", bg = "green", text = "By Luke-zhang-04", anchor = "nw"
     )
 
-    aPrime = canvas.create_polygon(500, 15, 550, 20, 600, 15, 600, 5, 500, 5, fill = "yellow", outline = "black")
+    #flip example
+    aPrime = canvas.create_polygon(500, 10, 500, 20, 550, 25, 600, 20, 600, 10, fill = "yellow", outline = "black")
     a = canvas.clone(aPrime)
-    canvas.flip(a, y = 20)
+    canvas.flip(a, m = .5, b = -200)
+
 
     canvas.update()
     canvas.mainloop()
 
 if __name__ == "__main__":
     _test()
-
-print("Imported successfully")
