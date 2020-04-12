@@ -18,6 +18,14 @@ Pip install this package
 ```
 pip install CanvasPlus
 ```
+```python
+from CanvasPlus import CanvasPlus
+CanvasPlus()
+```
+```python
+import CanvasPlus
+CanvasPlus.CanvasPlus()
+```
 ### Option 2: Github ###
 Download a zip file containing all files.
 ```
@@ -25,7 +33,14 @@ git clone https://github.com/Luke-zhang-04/CanvasPlus.git
 ```
 or<br/>
 ![Screen Shot 2020-03-31 at 2 48 23 PM](https://user-images.githubusercontent.com/55749227/78063759-b4766700-735e-11ea-8ba7-6cfe3b72bcb0.png)
-
+```python
+from CanvasPlus.canvasplus import CanvasPlus
+CanvasPlus()
+```
+```python
+import CanvasPlus.canvasplus as CanvasPlus
+CanvasPlus.CanvasPlus()
+```
 ## Usage ##
 Usage is very simple, especially for those with experience using tkinter canvas.
 
