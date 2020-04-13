@@ -1,20 +1,17 @@
 '''
 Luke-zhang-04
-Canvas Plus v1.1.3 (https://github.com/Luke-zhang-04/CanvasPlus)
-Copyright (C) 2020 Luke-zhang-04
+CanvasPlus v1.2.0 (https://github.com/Luke-zhang-04/CanvasPlus)
+Copyright (C) 2020 Luke Zhang
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see https://github.com/Luke-zhang-04/CanvasPlus/blob/master/LICENSE.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 '''
 
 #tkinter
@@ -38,7 +35,9 @@ import warnings
 #regex
 import re
 
-print("Hello from CanvasPlus")
+_canvasPlusVersion = "v1.2.0"
+
+print("This is CanvasPlus %s" % _canvasPlusVersion)
 
 class Error(Exception):
    '''Base class for other exceptions'''
@@ -228,8 +227,6 @@ class AnalyticGeometry:
         elif "y" in eqn1:
             flat = eqn2["m"] in (None, 0) and eqn1["m"] in (None, 0)
 
-        print(eqn1, eqn2)
-
         if flat:
             if "x" in eqn1:
                 poi = float(eqn1["x"]), float(eqn2["y"])
@@ -251,7 +248,7 @@ class AnalyticGeometry:
 class Transformations:
     '''define transformation methods'''
 
-    def rotate(self, tagOrId: Union[int, str], x: Real, y: Real, amount: Real, unit: str = "rad", warn: bool = True) -> None:
+    def rotate(self, tagOrId: Union[int, str], x: Real, y: Real, amount: Real, unit: str = "rad", warn: bool = True) -> Tuple[Union[float, int]]:
         '''rotate obj on axis x, y by amount in degrees or radians clockwise'''
         if unit in ("d", "deg", "degree", "degrees"):
             amount *= math.pi/180 #convert to radians
@@ -282,6 +279,7 @@ class Transformations:
                     UnsupportedObjectType
                 )
             self.coords(tagOrId, *newCords)
+        return newCords
 
     def flip(self, tagOrId: Union[int, str], **eqn: Dict) -> Tuple[Union[float, int]]:
         '''flips tagOrId on line eqn. eqn should be either {y: val}, {x: val}, or {m: val, b: val} m being slope and b being y-intercept'''
@@ -308,7 +306,6 @@ class Transformations:
 
         #Points of intersect
         POIs = [AnalyticGeometry.get_poi(eqn, i) for i in perEqns]
-        print(POIs, cords, "POI, CORDS")
 
         newPts = [] #new points
 
@@ -324,17 +321,29 @@ class Transformations:
             newCords.append(i[1])
         
         self.coords(tagOrId, *newCords)
-        print("\n", self.coords(tagOrId), newCords, newPts)
         return newPts
         
-
     reflect = flip
 
-    def resize(self, tagOrId: Union[int, str], scale: Real) -> None:
-        '''Resizes tagOrId by scale'''
-        pass
+    def resize(self, tagOrId: Union[int, str], scale: Real, x: Real, y: Real) -> Tuple[Union[float, int]]:
+        '''Resizes tagOrId by scale with point x, y'''
+        vals = self.coords(tagOrId)
+        coords = [(vals[i], vals[i+1]) for i in range(0, len(vals), 2)]
+        newCoords = []
+
+        if scale < 1:
+            for x1, y1 in coords:
+                newCoords.append(x1 + (x - x1)*scale)
+                newCoords.append(y1 - (y1 - y)*scale)
+        elif scale > 1:
+            for x1, y1 in coords:
+                newCoords.append(x - (x - x1)*scale)
+                newCoords.append(y - (y - y1)*scale)
+        
+        print(newCoords)
+        return newCoords
     
-    size = resize
+    size = scale = resize 
 
 
 class CanvasPlus(Canvas, WidgetWindows, Transformations):
@@ -493,7 +502,7 @@ def _test():
     #create an entry and set it's default value
     content = StringVar()
     canvas.create_entry(0, 0, anchor = "nw", textvariable = content, fg = "blue", bg = "gold")
-    content.set("This is CanvasPlus v1.1.3")
+    content.set("This is CanvasPlus %s" % _canvasPlusVersion)
 
     #create button to print the value in the previously cretaed entry
     canvas.create_button(
@@ -516,7 +525,6 @@ def _test():
     aPrime = canvas.create_polygon(500, 10, 500, 20, 550, 25, 600, 20, 600, 10, fill = "yellow", outline = "black")
     a = canvas.clone(aPrime)
     canvas.flip(a, m = .5, b = -200)
-
 
     canvas.update()
     canvas.mainloop()
