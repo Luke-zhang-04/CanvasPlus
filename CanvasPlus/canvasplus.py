@@ -14,7 +14,7 @@ The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 '''
 
-#This file is compatible with Python 3.5 and above.
+#This file is compatible with Python 3.5 and above. For python 3.4 and below, use the code in pythonBelow3.5
 
 #tkinter
 from tkinter import (
