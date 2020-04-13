@@ -1,6 +1,7 @@
+'''The CanvasPlus package, version 1.2.2'''
 '''
 Luke-zhang-04
-CanvasPlus v1.2.1 (https://github.com/Luke-zhang-04/CanvasPlus)
+CanvasPlus v1.2.2 (https://github.com/Luke-zhang-04/CanvasPlus)
 Copyright (C) 2020 Luke Zhang
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -37,7 +38,7 @@ import warnings
 #regex
 import re
 
-_canvasPlusVersion = "v1.2.1"
+_canvasPlusVersion = "v1.2.2"
 
 print("This is CanvasPlus %s" % _canvasPlusVersion)
 
@@ -342,10 +343,8 @@ class Transformations:
                 newCoords.append(x - (x - x1)*scale)
                 newCoords.append(y - (y - y1)*scale)
         
-        print(newCoords)
+        self.coords(tagOrId, *newCoords)
         return newCoords
-    
-    size = scale = resize 
 
 
 class CanvasPlus(Canvas, WidgetWindows, Transformations):
