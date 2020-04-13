@@ -1,5 +1,5 @@
 # Canvas Plus #
-## V1.2.0 ##
+## V1.2.1 ##
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 [![PyPI version shields.io](https://img.shields.io/pypi/v/CanvasPlus.svg)](https://pypi.python.org/pypi/CanvasPlus/)
 [![GitHub release](https://img.shields.io/github/release/Luke-zhang-04/CanvasPlus)](https://GitHub.com/Luke-zhang-04/CanvasPlus/releases/)
@@ -51,7 +51,6 @@ For complete documentation, head over the [the wiki](https://github.com/Luke-zha
 #Imports
 from CanvasPlus import CanvasPLus
 from tkinter import Tk, StringVar, DoubleVar
-import math
 
 #set up canvas
 root = Tk()
@@ -78,7 +77,7 @@ canvas.rotate(rect, 150, 600, math.pi/4)
 #create an entry and set it's default value
 content = StringVar()
 canvas.create_entry(0, 0, anchor = "nw", textvariable = content, fg = "blue", bg = "gold")
-content.set("This is CanvasPlus v1.1.3")
+content.set("This is CanvasPlus %s" % _canvasPlusVersion)
 
 #create button to print the value in the previously cretaed entry
 canvas.create_button(
@@ -101,7 +100,6 @@ canvas.create_label(
 aPrime = canvas.create_polygon(500, 10, 500, 20, 550, 25, 600, 20, 600, 10, fill = "yellow", outline = "black")
 a = canvas.clone(aPrime)
 canvas.flip(a, m = .5, b = -200)
-
 
 canvas.update()
 canvas.mainloop()

@@ -14,7 +14,8 @@ The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 '''
 
-#This file is compatible with Python 3.5 and above.
+#This file is meant for those who intend on using this package for Python versions 3.0 - 3.4
+#For Python 3.5 and above, use the main CanvasPlus folder
 
 #tkinter
 from tkinter import (
@@ -24,12 +25,6 @@ from tkinter import (
 
 #complex numbers and stuff
 import cmath, math
-
-#stuff for typing hints
-from numbers import Real
-
-#typing
-from typing import Tuple, Union, List, Callable, Dict
 
 #warnings
 import warnings
@@ -81,7 +76,7 @@ class WidgetWindows:
         if "window" not in windowKwargs: windowKwargs["window"] = newWidget
         return self.create_window(x, y, **windowKwargs), newWidget
     
-    def create_button(self, x: Real, y: Real, **kwargs) -> Tuple[int, Button]:
+    def create_button(self, x, y, **kwargs):
         '''
         create button with cordinates x y
 
@@ -89,7 +84,7 @@ class WidgetWindows:
         '''
         return self._create_widget(x, y, Button, **kwargs)
         
-    def create_checkbutton(self, x: Real, y: Real, **kwargs) -> Tuple[int, Checkbutton]:
+    def create_checkbutton(self, x, y, **kwargs):
         '''
         create checkbutton with cordinates x y
 
@@ -97,7 +92,7 @@ class WidgetWindows:
         '''
         return self._create_widget(x, y, Checkbutton, **kwargs)
 
-    def create_entry(self, x: Real, y: Real, **kwargs) -> Tuple[int, Entry]:
+    def create_entry(self, x, y, **kwargs):
         '''
         create text entry box with cordinates x y
 
@@ -105,7 +100,7 @@ class WidgetWindows:
         '''
         return self._create_widget(x, y, Entry, **kwargs)
     
-    def create_frame(self, x: Real, y: Real, **kwargs) -> Tuple[int, Frame]:
+    def create_frame(self, x, y, **kwargs):
         '''
         create frame with cordinates x y
 
@@ -113,7 +108,7 @@ class WidgetWindows:
         '''
         return self._create_widget(x, y, Button, **kwargs)
 
-    def create_label(self, x: Real, y: Real, **kwargs) -> Tuple[int, Label]:
+    def create_label(self, x, y, **kwargs):
         '''
         create label with cordinates x y
 
@@ -121,7 +116,7 @@ class WidgetWindows:
         '''
         return self._create_widget(x, y, Label, **kwargs)
 
-    def create_labelframe(self, x: Real, y: Real, **kwargs) -> Tuple[int, LabelFrame]:
+    def create_labelframe(self, x, y, **kwargs):
         '''
         create label with cordinates x y
 
@@ -129,7 +124,7 @@ class WidgetWindows:
         '''
         return self._create_widget(x, y, LabelFrame, **kwargs)
 
-    def create_listbox(self, x: Real, y: Real, **kwargs) -> Tuple[int, Listbox]:
+    def create_listbox(self, x, y, **kwargs):
         '''
         create listbox with cordinates x y
 
@@ -137,7 +132,7 @@ class WidgetWindows:
         '''
         return self._create_widget(x, y, Listbox, **kwargs)
 
-    def create_panedwindow(self, x: Real, y: Real, **kwargs) -> Tuple[int, PanedWindow]:
+    def create_panedwindow(self, x, y, **kwargs):
         '''
         create panned window with cordinates x y
 
@@ -145,7 +140,7 @@ class WidgetWindows:
         '''
         return self._create_widget(x, y, PanedWindow, **kwargs)
 
-    def create_radiobutton(self, x: Real, y: Real, **kwargs) -> Tuple[int, Radiobutton]:
+    def create_radiobutton(self, x, y, **kwargs):
         '''
         create radiobutton with cordinates x y
 
@@ -153,7 +148,7 @@ class WidgetWindows:
         '''
         return self._create_widget(x, y, Radiobutton, **kwargs)
     
-    def create_scale(self, x: Real, y: Real, **kwargs) -> Tuple[int, Scale]:
+    def create_scale(self, x, y, **kwargs):
         '''
         create scale with cordinates x y
 
@@ -161,7 +156,7 @@ class WidgetWindows:
         '''
         return self._create_widget(x, y, Scale, **kwargs)
     
-    def create_scrollbar(self, x: Real, y: Real, **kwargs) -> Tuple[int, Scrollbar]:
+    def create_scrollbar(self, x, y, **kwargs):
         '''
         create scrollbar with cordinates x y
 
@@ -169,7 +164,7 @@ class WidgetWindows:
         '''
         return self._create_widget(x, y, Scrollbar, **kwargs)
 
-    def create_spinbox(self, x: Real, y: Real, **kwargs) -> Tuple[int, Spinbox]:
+    def create_spinbox(self, x, y, **kwargs):
         '''
         create spinbox with cordinates x y
 
@@ -182,7 +177,7 @@ class AnalyticGeometry:
     '''perform basic analytic geometry'''
 
     @staticmethod
-    def make_eqn(slope: Union[float, int, None], *pt) -> Dict:
+    def make_eqn(slope, *pt):
         '''gets the parts of an equation'''
         properties = {}
         if slope == None: #got errors becase 0 evaulates to False
@@ -206,7 +201,7 @@ class AnalyticGeometry:
         return properties
 
     @staticmethod
-    def perpendicular_slope(eqn: Dict) -> Union[float, int, None]:
+    def perpendicular_slope(eqn):
         '''gets the perpendicular slope of an equation'''
         if "m" not in eqn or not eqn["m"]:
             if "y" in eqn:
@@ -219,7 +214,7 @@ class AnalyticGeometry:
         return perpendicular
 
     @staticmethod
-    def get_poi(eqn1: Dict, eqn2: Dict) -> Tuple[Union[float, int]]:
+    def get_poi(eqn1, eqn2):
         '''gets the point of intersection between two lines'''
         poi = ()
 
@@ -250,7 +245,7 @@ class AnalyticGeometry:
 class Transformations:
     '''define transformation methods'''
 
-    def rotate(self, tagOrId: Union[int, str], x: Real, y: Real, amount: Real, unit: str = "rad", warn: bool = True) -> Tuple[Union[float, int]]:
+    def rotate(self, tagOrId, x, y, amount, unit = "rad", warn = True):
         '''rotate obj on axis x, y by amount in degrees or radians clockwise'''
         if unit in ("d", "deg", "degree", "degrees"):
             amount *= math.pi/180 #convert to radians
@@ -283,7 +278,7 @@ class Transformations:
             self.coords(tagOrId, *newCords)
         return newCords
 
-    def flip(self, tagOrId: Union[int, str], **eqn: Dict) -> Tuple[Union[float, int]]:
+    def flip(self, tagOrId, **eqn):
         '''flips tagOrId on line eqn. eqn should be either {y: val}, {x: val}, or {m: val, b: val} m being slope and b being y-intercept'''
         if len(eqn) == 0: raise InvalidEquation("Empty equation")
 
@@ -327,7 +322,7 @@ class Transformations:
         
     reflect = flip
 
-    def resize(self, tagOrId: Union[int, str], scale: Real, x: Real, y: Real) -> Tuple[Union[float, int]]:
+    def resize(self, tagOrId, scale, x, y):
         '''Resizes tagOrId by scale with point x, y'''
         vals = self.coords(tagOrId)
         coords = [(vals[i], vals[i+1]) for i in range(0, len(vals), 2)]
@@ -351,7 +346,7 @@ class Transformations:
 class CanvasPlus(Canvas, WidgetWindows, Transformations):
     '''Improved Canvas widget with more functionality to display graphical elements like lines or text.'''
 
-    def clone(self, tagOrId: Union[int, str], *args: List[int]) -> int:
+    def clone(self, tagOrId, *args):
         '''clones tagOrId and places is at optional coordinates, or places is on top of the first object'''
         if len(args) == 0:
             args = self.coords(tagOrId)
@@ -364,7 +359,7 @@ class CanvasPlus(Canvas, WidgetWindows, Transformations):
             output
         )
         
-    def create_arrow(self, x1: Real, y1: Real, headLength: Real, headWidth: Real, bodyLength: Real, bodyWidth: Real, **kwargs) -> int:
+    def create_arrow(self, x1, y1, headLength, headWidth, bodyLength, bodyWidth, **kwargs):
         '''Create arrow with x1, y1 as the tip; headWith, headLengh as the length and width of the arrowhead; and bodyLength, bodyWidth as the length and width of the arrow body, as well as direction = val (0 by default)'''
         
         points = [
@@ -379,11 +374,11 @@ class CanvasPlus(Canvas, WidgetWindows, Transformations):
         
         return self._create('polygon', points, kwargs)
 
-    def create_circle(self, x: Real, y: Real, radius: Real, **kwargs) -> int:
+    def create_circle(self, x, y, radius, **kwargs):
         '''Create circle with coordinates x, y, radius'''
         return self._create('oval', [x+radius, y+radius, x-radius, y-radius], kwargs)
 
-    def create_round_rectangle(self, x1: Real, y1: Real, x2: Real, y2: Real, radius: Real = 25, **kwargs) -> int:
+    def create_round_rectangle(self, x1, y1, x2, y2, radius = 25, **kwargs):
         '''Create circle with coordinates x1, y1, x2, y2, radius = val (default 25)'''
         points = [
             x1+radius, y1,
@@ -411,18 +406,18 @@ class CanvasPlus(Canvas, WidgetWindows, Transformations):
         kwargs["smooth"] = True
         return self._create('polygon', points, kwargs)
 
-    def get_attributes(self, tagOrId: Union[int, str]) -> Dict:
+    def get_attributes(self, tagOrId):
         '''Returns all properties of tagOrId'''
         properties = self.itemconfig(tagOrId)
         return {key: properties[key][-1] for key in properties}
 
     get_attr = get_attributes
 
-    def __iter__(self) -> iter:
+    def __iter__(self):
         '''Creates iterator of everything on the canvas'''
         return iter(self.find_all())
 
-    def to_polygon(self, tagOrId: Union[int, str]) -> int:
+    def to_polygon(self, tagOrId):
         '''converts rectangle to polygon'''
         output = self.get_attributes(tagOrId)
 
@@ -448,8 +443,7 @@ class CanvasPlus(Canvas, WidgetWindows, Transformations):
     poly = to_polygon
 
     def tags_bind(
-        self, tagsOrIds: Union[int, str, Tuple], sequences: Union[str, Tuple] = None,
-        funcs = Union[Callable, Tuple], add: bool = None) -> Union[str, List[str]]:
+        self, tagsOrIds, sequences = None, funcs = None, add = False):
         '''Binds either multiple tags to one function, or multiple tags to multiple functions with matching indicies in one function
         
         i.e (tag1, tag2, tag3), func1 will bind tag1, tag2, tag3 into fun1, while (tag1, tag2, tag3), (func1, func2, func3) will bind tag1 to func1, tag2 to func2, tag3 to func3.
