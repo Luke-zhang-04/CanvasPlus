@@ -3,16 +3,6 @@
 Luke-zhang-04
 CanvasPlus v1.3.0 (https://github.com/Luke-zhang-04/CanvasPlus)
 Copyright (C) 2020 Luke Zhang
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
 '''
 
 #This file is compatible with Python 3.5 and above. For python 3.4 and below, use the code in pythonBelow3.5
@@ -257,6 +247,23 @@ class AnalyticGeometry:
 
 class AsyncTransformations:
     '''define asynchronus transformation methods'''
+
+    async def async_move(
+        self, tagOrId: Union[int, str], xDist: Real, yDist: Real, time: float, fps: int = 24, update: bool = True
+    ) -> Tuple[Union[float, int]]:
+        '''Asynchronously move tagOrId by xDist and yDist (x distance, y distance)
+        fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
+        '''
+        timeIncrement, moveIncrement = 1/fps, (xDist/time/fps, yDist/time/fps)
+
+        counter = 0
+        while time*fps > counter*timeIncrement*fps:
+            counter += 1
+
+            self.move(tagOrId, moveIncrement[0], moveIncrement[1])
+
+            if update: self.update()
+            await asyncio.sleep(timeIncrement)
 
     async def async_rotate(self,
         tagOrId: Union[int, str], x: Real, y: Real, time: float, amount: Real,
