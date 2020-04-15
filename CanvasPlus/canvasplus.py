@@ -258,12 +258,12 @@ class AnalyticGeometry:
 class AsyncTransformations:
     '''define asynchronus transformation methods'''
 
-    async def async_rotate(
-        self, tagOrId: Union[int, str], x: Real, y: Real, time: float,
-        amount: Real, unit: str = "rad", warn: bool = True, fps: int = 24, update: bool = True
+    async def async_rotate(self,
+        tagOrId: Union[int, str], x: Real, y: Real, time: float, amount: Real,
+        unit: str = "rad", warn: bool = True, fps: int = 24, update: bool = True
     ) -> Tuple[Union[float, int]]:
         '''Asynchronously rotate tagOrId on axis x, y by amount in degrees or radians clockwise (use negaitves for counter-clockwise)
-        fps: frames per second, time: specify the amount of time the animation shall take to complete
+        fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
         '''
         if unit in ("d", "deg", "degree", "degrees"):
             amount *= math.pi/180 #convert to radians
