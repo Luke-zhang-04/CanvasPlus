@@ -250,6 +250,39 @@ class AnalyticGeometry:
         return poi
 
 
+class AsyncTransformations:
+    '''define asynchronus transformation methods'''
+
+    async def async_rotate(self,tagOrId, x, y, time, amount,unit = "rad", warn = True, fps = 24, update = True):
+        '''Asynchronously rotate tagOrId on axis x, y by amount in degrees or radians clockwise (use negaitves for counter-clockwise)
+        fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
+        '''
+        if unit in ("d", "deg", "degree", "degrees"):
+            amount *= math.pi/180 #convert to radians
+        elif unit in ("r", "rad", "radian", "radians"):
+            pass
+        else:
+            raise InvalidUnitError("Invalid unit \"" + unit + "\"")
+    
+        if self.tk.call(self._w, 'type', tagOrId) != "polygon" and warn:
+            warnings.warn(
+                "WARNING! Canvas element of type " + self.tk.call(self._w, 'type', tagOrId) + " is not supported. Rotation may not look as expected. " + 
+                "Use the to_polygon() method to turn the " + self.tk.call(self._w, 'type', tagOrId) + " into a polygon.",
+                UnsupportedObjectType
+            )
+
+
+        timeIncrement, moveIncrement = 1/fps, amount/time/fps
+
+        counter = 0
+        while time*fps > counter*timeIncrement*fps: #use while loop in case of float
+            counter += 1
+            self.rotate(tagOrId, x, y, moveIncrement, unit = "r", warn = False)
+            
+            if update: self.update()
+            await asyncio.sleep(timeIncrement)
+
+
 class Transformations:
     '''define transformation methods'''
 
@@ -349,7 +382,7 @@ class Transformations:
         return newCoords
 
 
-class CanvasPlus(Canvas, WidgetWindows, Transformations):
+class CanvasPlus(Canvas, WidgetWindows, Transformations, AsyncTransformations):
     '''Improved Canvas widget with more functionality to display graphical elements like lines or text.'''
 
     def clone(self, tagOrId, *args):
