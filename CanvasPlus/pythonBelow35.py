@@ -243,9 +243,7 @@ class AnalyticGeometry:
 class AsyncTransformations:
     '''define asynchronus transformation methods'''
 
-    async def async_move(
-        self, tagOrId: Union[int, str], xDist: Real, yDist: Real, time: float, fps: int = 24, update: bool = True
-    ) -> Tuple[Union[float, int]]:
+    async def async_move(self, tagOrId, xDist, yDist, time, fps = 24, update = True):
         '''Asynchronously move tagOrId by xDist and yDist (x distance, y distance)
         fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
         '''
