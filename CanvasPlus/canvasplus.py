@@ -290,6 +290,7 @@ class AsyncTransformations:
             if update: self.update()
             await asyncio.sleep(timeIncrement)
 
+
 class Transformations:
     '''define transformation methods'''
 
