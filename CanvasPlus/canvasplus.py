@@ -262,42 +262,30 @@ class AsyncTransformations:
         self, tagOrId: Union[int, str], x: Real, y: Real, time: float,
         amount: Real, unit: str = "rad", warn: bool = True, fps: int = 24, update: bool = True
     ) -> Tuple[Union[float, int]]:
-        '''Asynchronusly rotate a canvas object in time (seconds)'''
+        '''Asynchronously rotate tagOrId on axis x, y by amount in degrees or radians clockwise (use negaitves for counter-clockwise)
+        fps: frames per second, time: specify the amount of time the animation shall take to complete
+        '''
         if unit in ("d", "deg", "degree", "degrees"):
             amount *= math.pi/180 #convert to radians
         elif unit in ("r", "rad", "radian", "radians"):
             pass
         else:
             raise InvalidUnitError("Invalid unit \"" + unit + "\"")
+    
+        if self.tk.call(self._w, 'type', tagOrId) != "polygon" and warn:
+            warnings.warn(
+                "WARNING! Canvas element of type " + self.tk.call(self._w, 'type', tagOrId) + " is not supported. Rotation may not look as expected. " + 
+                "Use the to_polygon() method to turn the " + self.tk.call(self._w, 'type', tagOrId) + " into a polygon.",
+                UnsupportedObjectType
+            )
+
 
         timeIncrement, moveIncrement = 1/fps, amount/time/fps
 
         counter = 0
         while time*fps > counter*timeIncrement*fps: #use while loop in case of float
             counter += 1
-
-            angle = cmath.exp(moveIncrement*1j)
-            offset = complex(x, y)
-            newCords = []
-            cords = [
-                (self.coords(tagOrId)[i], self.coords(tagOrId)[i+1]) for i in range(0, len(self.coords(tagOrId)), 2)
-            ]
-            for xPt, yPt in cords:
-                num = angle * (complex(xPt, yPt) - offset) + offset
-                newCords.append(num.real)
-                newCords.append(num.imag)
-            
-            objType = self.tk.call(self._w, 'type', tagOrId)
-            if objType == "polygon":
-                self.coords(tagOrId, *newCords)
-            else:
-                if (warn):
-                    warnings.warn(
-                        "WARNING! Canvas element of type " + objType + " is not supported. Rotation may not look as expected. " + 
-                        "Use the to_polygon() method to turn the " + objType + " into a polygon.",
-                        UnsupportedObjectType
-                    )
-                self.coords(tagOrId, *newCords)
+            self.rotate(tagOrId, x, y, moveIncrement, unit = "r", warn = False)
             
             if update: self.update()
             await asyncio.sleep(timeIncrement)
@@ -306,7 +294,7 @@ class Transformations:
     '''define transformation methods'''
 
     def rotate(self, tagOrId: Union[int, str], x: Real, y: Real, amount: Real, unit: str = "rad", warn: bool = True) -> Tuple[Union[float, int]]:
-        '''rotate obj on axis x, y by amount in degrees or radians clockwise'''
+        '''rotate tagOrId on axis x, y by amount in degrees or radians clockwise(use negaitves for counter-clockwise)'''
         if unit in ("d", "deg", "degree", "degrees"):
             amount *= math.pi/180 #convert to radians
         elif unit in ("r", "rad", "radian", "radians"):
