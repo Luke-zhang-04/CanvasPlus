@@ -270,17 +270,13 @@ class AsyncTransformations:
         else:
             raise InvalidUnitError("Invalid unit \"" + unit + "\"")
 
-        timeIncrement = 1/fps
-        #moveIncrement = amount/time*timeIncrement
-        moveIncrement = amount*fps/time*fps
-        print(moveIncrement, timeIncrement)
+        timeIncrement, moveIncrement = 1/fps, amount/time/fps
 
         counter = 0
         while time*fps > counter*timeIncrement*fps: #use while loop in case of float
             counter += 1
-            print(counter, moveIncrement, moveIncrement*counter, amount)
 
-            angle = cmath.exp(moveIncrement*counter*1j)
+            angle = cmath.exp(moveIncrement*1j)
             offset = complex(x, y)
             newCords = []
             cords = [
