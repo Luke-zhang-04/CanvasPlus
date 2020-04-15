@@ -148,7 +148,3 @@ cython_debug/
 # static files generated from Django application using `collectstatic`
 media
 static
-
-#files for later
-asyncio_old
-requirements.txt

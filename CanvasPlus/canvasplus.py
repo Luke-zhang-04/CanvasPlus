@@ -1,7 +1,7 @@
-'''The CanvasPlus package, version 1.2.2'''
+'''The CanvasPlus package, version 1.3.0'''
 '''
 Luke-zhang-04
-CanvasPlus v1.2.2 (https://github.com/Luke-zhang-04/CanvasPlus)
+CanvasPlus v1.3.0 (https://github.com/Luke-zhang-04/CanvasPlus)
 Copyright (C) 2020 Luke Zhang
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -38,7 +38,14 @@ import warnings
 #regex
 import re
 
-_canvasPlusVersion = "v1.2.2"
+#asyncio
+try: import asyncio
+except ImportError:
+    print("Library Asyncio not found. You have four options\n1. use python 3.7 or higher\n2. install asyncio with pip (pip install asyncio)\n3. Download CanvasPlus version 1.2.2 which does not use asyncio, but loose async features\n4. Use the programs default mechanism which imports an older version of asyncio")
+    print("importing The asyncio package, tracking PEP 3156")
+    import CanvasPlus.asyncio_old as asyncio
+
+_canvasPlusVersion = "v1.3.0"
 
 print("This is CanvasPlus %s" % _canvasPlusVersion)
 
@@ -248,6 +255,57 @@ class AnalyticGeometry:
         return poi
 
 
+class AsyncTransformations:
+    '''define asynchronus transformation methods'''
+
+    async def async_rotate(
+        self, tagOrId: Union[int, str], x: Real, y: Real, time: float,
+        amount: Real, unit: str = "rad", warn: bool = True, fps: int = 24, update: bool = True
+    ) -> Tuple[Union[float, int]]:
+        '''Asynchronusly rotate a canvas object in time (seconds)'''
+        if unit in ("d", "deg", "degree", "degrees"):
+            amount *= math.pi/180 #convert to radians
+        elif unit in ("r", "rad", "radian", "radians"):
+            pass
+        else:
+            raise InvalidUnitError("Invalid unit \"" + unit + "\"")
+
+        timeIncrement = 1/fps
+        #moveIncrement = amount/time*timeIncrement
+        moveIncrement = amount*fps/time*fps
+        print(moveIncrement, timeIncrement)
+
+        counter = 0
+        while time*fps > counter*timeIncrement*fps: #use while loop in case of float
+            counter += 1
+            print(counter, moveIncrement, moveIncrement*counter, amount)
+
+            angle = cmath.exp(moveIncrement*counter*1j)
+            offset = complex(x, y)
+            newCords = []
+            cords = [
+                (self.coords(tagOrId)[i], self.coords(tagOrId)[i+1]) for i in range(0, len(self.coords(tagOrId)), 2)
+            ]
+            for xPt, yPt in cords:
+                num = angle * (complex(xPt, yPt) - offset) + offset
+                newCords.append(num.real)
+                newCords.append(num.imag)
+            
+            objType = self.tk.call(self._w, 'type', tagOrId)
+            if objType == "polygon":
+                self.coords(tagOrId, *newCords)
+            else:
+                if (warn):
+                    warnings.warn(
+                        "WARNING! Canvas element of type " + objType + " is not supported. Rotation may not look as expected. " + 
+                        "Use the to_polygon() method to turn the " + objType + " into a polygon.",
+                        UnsupportedObjectType
+                    )
+                self.coords(tagOrId, *newCords)
+            
+            if update: self.update()
+            await asyncio.sleep(timeIncrement)
+
 class Transformations:
     '''define transformation methods'''
 
@@ -347,7 +405,7 @@ class Transformations:
         return newCoords
 
 
-class CanvasPlus(Canvas, WidgetWindows, Transformations):
+class CanvasPlus(Canvas, WidgetWindows, Transformations, AsyncTransformations):
     '''Improved Canvas widget with more functionality to display graphical elements like lines or text.'''
 
     def clone(self, tagOrId: Union[int, str], *args: List[int]) -> int:
