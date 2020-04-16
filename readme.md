@@ -1,7 +1,7 @@
 # Canvas Plus #
 ## V1.3.0-a ##
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
-[![PyPI version shields.io](https://img.shields.io/pypi/v/CanvasPlus.svg)](https://pypi.python.org/pypi/CanvasPlus/)
+[![PyPI version shields.io](https://img.shields.io/pypi/v/canvasplus.svg)](https://pypi.python.org/pypi/canvasplus/)
 [![GitHub release](https://img.shields.io/github/release/Luke-zhang-04/CanvasPlus)](https://GitHub.com/Luke-zhang-04/CanvasPlus/releases/)
 [![GitHub license](https://img.shields.io/github/license/Luke-zhang-04/CanvasPlus)](https://github.com/Luke-zhang-04/CanvasPlus/blob/master/LICENSE)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/CanvasPlus.svg)](https://pypi.python.org/pypi/CanvasPlus/)

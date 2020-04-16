@@ -1,7 +1,7 @@
-"""The CanvasPlus package, version 1.3.0-a"""
+"""The CanvasPlus package, version 1.3.0"""
 """
 Luke-zhang-04
-CanvasPlus v1.3.0-a (https://github.com/Luke-zhang-04/CanvasPlus)
+CanvasPlus v1.3.0 (https://github.com/Luke-zhang-04/CanvasPlus)
 Copyright (C) 2020 Luke Zhang
 """
 
@@ -25,6 +25,9 @@ from typing import Tuple, Union, List, Callable, Dict
 #warnings
 import warnings
 
+#errors
+from CanvasPlus.errors import *
+
 #regex
 import re
 
@@ -35,30 +38,9 @@ except ImportError:
     print("importing The asyncio package, tracking PEP 3156")
     import CanvasPlus.asyncio_old as asyncio
 
-_canvasPlusVersion = "v1.3.0-a"
+_canvasPlusVersion = "v1.3.0"
 
 print("This is CanvasPlus %s" % _canvasPlusVersion)
-
-class Error(Exception):
-   """Base class for other exceptions"""
-   pass
-
-class InvalidUnitError(Error):
-    """Raised when unit is not recognised"""
-    pass
-
-class UnsupportedObjectType(UserWarning):
-    """raised when object type is not supported"""
-    pass
-
-class InvalidObjectType(Error):
-    """raised when object type not supported"""
-    pass
-
-class InvalidEquation(Error):
-    """raised when euqtion of a line is invalid"""
-    pass
-
 
 class WidgetWindows:
     """Class for createing widgets as windows within the canvas"""
@@ -247,6 +229,15 @@ class AnalyticGeometry:
 
 class AsyncTransformations:
     """define asynchronus transformation methods"""
+
+    async def async_morph(
+        self, tagOrId: Union[int, str], time: float, *coords: List[float],
+        fps: int = 24, update: bool = True
+    ) -> Tuple[Union[float, int]]:
+        """Asynchronously morph tagOrId into *coords
+        fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
+        """
+        if len(tagOrId) != len(coords): raise MorphError("*coords must be the same length as the coords of the original shape")
 
     async def async_move(
         self, tagOrId: Union[int, str], xDist: Real, yDist: Real,

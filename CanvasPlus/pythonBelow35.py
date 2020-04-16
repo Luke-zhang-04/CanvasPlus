@@ -1,7 +1,7 @@
-"""The CanvasPlus package, version 1.3.0-a for Python 3.0-3.4"""
+"""The CanvasPlus package, version 1.3.0 for Python 3.0-3.4"""
 """
 Luke-zhang-04
-CanvasPlus v1.3.0-a (https://github.com/Luke-zhang-04/CanvasPlus)
+CanvasPlus v1.3.0 (https://github.com/Luke-zhang-04/CanvasPlus)
 Copyright (C) 2020 Luke Zhang
 """
 
@@ -30,7 +30,7 @@ except ImportError:
     print("importing The asyncio package, tracking PEP 3156")
     import CanvasPlus.asyncio_old as asyncio
 
-_canvasPlusVersion = "v1.3.0-a"
+_canvasPlusVersion = "v1.3.0"
 
 print("This is CanvasPlus %s" % _canvasPlusVersion)
 
