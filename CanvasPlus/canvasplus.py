@@ -237,7 +237,7 @@ class AsyncTransformations:
         """Asynchronously morph tagOrId into *coords
         fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
         """
-        if len(tagOrId) != len(coords): raise MorphError("*coords must be the same length as the coords of the original shape")
+        if len(self.coords(tagOrId)) != len(coords): raise MorphError("*coords must be the same length as the coords of the original shape")
 
     async def async_move(
         self, tagOrId: Union[int, str], xDist: Real, yDist: Real,
@@ -252,9 +252,9 @@ class AsyncTransformations:
         while time*fps > counter*timeIncrement*fps:
             counter += 1
 
-            self.move(tagOrId, moveIncrement[0], moveIncrement[1])
+            self.tk.call((self._w, 'move') + (tagOrId, moveIncrement[0], moveIncrement[1]))
 
-            if update: self.update()
+            if update: self.tk.call('update')
             await asyncio.sleep(timeIncrement)
 
     async def async_resize(
@@ -288,7 +288,7 @@ class AsyncTransformations:
             
             self.coords(tagOrId, *newCoords)
 
-            if update: self.update()
+            if update: self.tk.call('update')
             await asyncio.sleep(timeIncrement)
 
 
@@ -321,7 +321,7 @@ class AsyncTransformations:
             counter += 1
             self.rotate(tagOrId, x, y, moveIncrement, unit = "r", warn = False)
             
-            if update: self.update()
+            if update: self.tk.call('update')
             await asyncio.sleep(timeIncrement)
 
 
