@@ -1,9 +1,9 @@
-'''The CanvasPlus package, version 1.3.0'''
-'''
+"""The CanvasPlus package, version 1.3.0"""
+"""
 Luke-zhang-04
 CanvasPlus v1.3.0 (https://github.com/Luke-zhang-04/CanvasPlus)
 Copyright (C) 2020 Luke Zhang
-'''
+"""
 
 #This file is compatible with Python 3.5 and above. For python 3.4 and below, use the code in pythonBelow3.5
 
@@ -40,33 +40,33 @@ _canvasPlusVersion = "v1.3.0"
 print("This is CanvasPlus %s" % _canvasPlusVersion)
 
 class Error(Exception):
-   '''Base class for other exceptions'''
+   """Base class for other exceptions"""
    pass
 
 class InvalidUnitError(Error):
-    '''Raised when unit is not recognised'''
+    """Raised when unit is not recognised"""
     pass
 
 class UnsupportedObjectType(UserWarning):
-    '''raised when object type is not supported'''
+    """raised when object type is not supported"""
     pass
 
 class InvalidObjectType(Error):
-    '''raised when object type not supported'''
+    """raised when object type not supported"""
     pass
 
 class InvalidEquation(Error):
-    '''raised when euqtion of a line is invalid'''
+    """raised when euqtion of a line is invalid"""
     pass
 
 
 class WidgetWindows:
-    '''Class for createing widgets as windows within the canvas'''
+    """Class for createing widgets as windows within the canvas"""
 
     windowProperties = ["anchor", "height", "state", "tags", "width", "window"]
 
     def _create_widget(self, x, y, widget, **kwargs):
-        '''internal function: creates widget of widget type and puts it onto the canvas'''
+        """internal function: creates widget of widget type and puts it onto the canvas"""
         widgetKwargs = {}
         windowKwargs = {}
         for key, val in kwargs.items():
@@ -80,108 +80,108 @@ class WidgetWindows:
         return self.create_window(x, y, **windowKwargs), newWidget
     
     def create_button(self, x: Real, y: Real, **kwargs) -> Tuple[int, Button]:
-        '''
+        """
         create button with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Button widget while "anchor" will be allocated to the window creation
-        '''
+        """
         return self._create_widget(x, y, Button, **kwargs)
         
     def create_checkbutton(self, x: Real, y: Real, **kwargs) -> Tuple[int, Checkbutton]:
-        '''
+        """
         create checkbutton with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Checkbutton widget while "anchor" will be allocated to the window creation
-        '''
+        """
         return self._create_widget(x, y, Checkbutton, **kwargs)
 
     def create_entry(self, x: Real, y: Real, **kwargs) -> Tuple[int, Entry]:
-        '''
+        """
         create text entry box with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Entry widget while "anchor" will be allocated to the window creation
-        '''
+        """
         return self._create_widget(x, y, Entry, **kwargs)
     
     def create_frame(self, x: Real, y: Real, **kwargs) -> Tuple[int, Frame]:
-        '''
+        """
         create frame with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Frame widget while "anchor" will be allocated to the window creation
-        '''
+        """
         return self._create_widget(x, y, Button, **kwargs)
 
     def create_label(self, x: Real, y: Real, **kwargs) -> Tuple[int, Label]:
-        '''
+        """
         create label with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Label widget while "anchor" will be allocated to the window creation
-        '''
+        """
         return self._create_widget(x, y, Label, **kwargs)
 
     def create_labelframe(self, x: Real, y: Real, **kwargs) -> Tuple[int, LabelFrame]:
-        '''
+        """
         create label with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the LabelFrame widget while "anchor" will be allocated to the window creation
-        '''
+        """
         return self._create_widget(x, y, LabelFrame, **kwargs)
 
     def create_listbox(self, x: Real, y: Real, **kwargs) -> Tuple[int, Listbox]:
-        '''
+        """
         create listbox with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Listbox widget while "anchor" will be allocated to the window creation
-        '''
+        """
         return self._create_widget(x, y, Listbox, **kwargs)
 
     def create_panedwindow(self, x: Real, y: Real, **kwargs) -> Tuple[int, PanedWindow]:
-        '''
+        """
         create panned window with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the PanedWindow widget while "anchor" will be allocated to the window creation
-        '''
+        """
         return self._create_widget(x, y, PanedWindow, **kwargs)
 
     def create_radiobutton(self, x: Real, y: Real, **kwargs) -> Tuple[int, Radiobutton]:
-        '''
+        """
         create radiobutton with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Radiobutton widget while "anchor" will be allocated to the window creation
-        '''
+        """
         return self._create_widget(x, y, Radiobutton, **kwargs)
     
     def create_scale(self, x: Real, y: Real, **kwargs) -> Tuple[int, Scale]:
-        '''
+        """
         create scale with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Scale widget while "anchor" will be allocated to the window creation
-        '''
+        """
         return self._create_widget(x, y, Scale, **kwargs)
     
     def create_scrollbar(self, x: Real, y: Real, **kwargs) -> Tuple[int, Scrollbar]:
-        '''
+        """
         create scrollbar with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Scrollbar widget while "anchor" will be allocated to the window creation
-        '''
+        """
         return self._create_widget(x, y, Scrollbar, **kwargs)
 
     def create_spinbox(self, x: Real, y: Real, **kwargs) -> Tuple[int, Spinbox]:
-        '''
+        """
         create spinbox with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Spinbox widget while "anchor" will be allocated to the window creation
-        '''
+        """
         return self._create_widget(x, y, Spinbox, **kwargs)
 
 
 class AnalyticGeometry:
-    '''perform basic analytic geometry'''
+    """perform basic analytic geometry"""
 
     @staticmethod
     def make_eqn(slope: Union[float, int, None], *pt) -> Dict:
-        '''gets the parts of an equation'''
+        """gets the parts of an equation"""
         properties = {}
         if slope == None: #got errors becase 0 evaulates to False
             properties = {
@@ -205,7 +205,7 @@ class AnalyticGeometry:
 
     @staticmethod
     def perpendicular_slope(eqn: Dict) -> Union[float, int, None]:
-        '''gets the perpendicular slope of an equation'''
+        """gets the perpendicular slope of an equation"""
         if "m" not in eqn or not eqn["m"]:
             if "y" in eqn:
                 perpendicular = None
@@ -218,7 +218,7 @@ class AnalyticGeometry:
 
     @staticmethod
     def get_poi(eqn1: Dict, eqn2: Dict) -> Tuple[Union[float, int]]:
-        '''gets the point of intersection between two lines'''
+        """gets the point of intersection between two lines"""
         poi = ()
 
         flat = False
@@ -246,14 +246,15 @@ class AnalyticGeometry:
 
 
 class AsyncTransformations:
-    '''define asynchronus transformation methods'''
+    """define asynchronus transformation methods"""
 
     async def async_move(
-        self, tagOrId: Union[int, str], xDist: Real, yDist: Real, time: float, fps: int = 24, update: bool = True
+        self, tagOrId: Union[int, str], xDist: Real, yDist: Real,
+        time: float, fps: int = 24, update: bool = True
     ) -> Tuple[Union[float, int]]:
-        '''Asynchronously move tagOrId by xDist and yDist (x distance, y distance)
+        """Asynchronously move tagOrId by xDist and yDist (x distance, y distance)
         fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
-        '''
+        """
         timeIncrement, moveIncrement = 1/fps, (xDist/time/fps, yDist/time/fps)
 
         counter = 0
@@ -265,13 +266,48 @@ class AsyncTransformations:
             if update: self.update()
             await asyncio.sleep(timeIncrement)
 
+    async def async_resize(
+        self, tagOrId: Union[int, str], scale: Real, x: Real, y: Real,
+        time: float, fps: int = 24, update: bool = True
+    ) -> Tuple[Union[float, int]]:
+        """Asynchronously resize tagOrId with point x, y and scale
+        fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
+        """
+
+        timeIncrement = 1/fps
+
+        vals = self.coords(tagOrId)
+        coords = [(vals[i], vals[i+1]) for i in range(0, len(vals), 2)]
+
+        if scale < 1: scale = 1 - scale
+
+        counter = 0
+        while time*fps > counter*timeIncrement*fps:
+            counter += 1
+            newCoords = []
+
+            if scale < 1:
+                for x1, y1 in coords:
+                    newCoords.append(x1 + ((x - x1)*scale)/time/fps*counter)
+                    newCoords.append(y1 - ((y1 - y)*scale)/time/fps*counter)
+            elif scale > 1:
+                for x1, y1 in coords:
+                    newCoords.append(x1 + ((x1 - x)*(scale-1))/time/fps*counter)
+                    newCoords.append(y1 - ((y - y1)*(scale-1))/time/fps*counter)
+            
+            self.coords(tagOrId, *newCoords)
+
+            if update: self.update()
+            await asyncio.sleep(timeIncrement)
+
+
     async def async_rotate(self,
         tagOrId: Union[int, str], x: Real, y: Real, time: float, amount: Real,
         unit: str = "rad", warn: bool = True, fps: int = 24, update: bool = True
     ) -> Tuple[Union[float, int]]:
-        '''Asynchronously rotate tagOrId on axis x, y by amount in degrees or radians clockwise (use negaitves for counter-clockwise)
+        """Asynchronously rotate tagOrId on axis x, y by amount in degrees or radians clockwise (use negaitves for counter-clockwise)
         fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
-        '''
+        """
         if unit in ("d", "deg", "degree", "degrees"):
             amount *= math.pi/180 #convert to radians
         elif unit in ("r", "rad", "radian", "radians"):
@@ -299,43 +335,10 @@ class AsyncTransformations:
 
 
 class Transformations:
-    '''define transformation methods'''
-
-    def rotate(self, tagOrId: Union[int, str], x: Real, y: Real, amount: Real, unit: str = "rad", warn: bool = True) -> Tuple[Union[float, int]]:
-        '''rotate tagOrId on axis x, y by amount in degrees or radians clockwise(use negaitves for counter-clockwise)'''
-        if unit in ("d", "deg", "degree", "degrees"):
-            amount *= math.pi/180 #convert to radians
-        elif unit in ("r", "rad", "radian", "radians"):
-            pass
-        else:
-            raise InvalidUnitError("Invalid unit \"" + unit + "\"")
-        
-        angle = cmath.exp(amount*1j)
-        offset = complex(x, y)
-        newCords = []
-        cords = [
-            (self.coords(tagOrId)[i], self.coords(tagOrId)[i+1]) for i in range(0, len(self.coords(tagOrId)), 2)
-        ]
-        for xPt, yPt in cords:
-            num = angle * (complex(xPt, yPt) - offset) + offset
-            newCords.append(num.real)
-            newCords.append(num.imag)
-        
-        objType = self.tk.call(self._w, 'type', tagOrId)
-        if objType == "polygon":
-            self.coords(tagOrId, *newCords)
-        else:
-            if (warn):
-                warnings.warn(
-                    "WARNING! Canvas element of type " + objType + " is not supported. Rotation may not look as expected. " + 
-                    "Use the to_polygon() method to turn the " + objType + " into a polygon.",
-                    UnsupportedObjectType
-                )
-            self.coords(tagOrId, *newCords)
-        return newCords
+    """define transformation methods"""
 
     def flip(self, tagOrId: Union[int, str], **eqn: Dict) -> Tuple[Union[float, int]]:
-        '''flips tagOrId on line eqn. eqn should be either {y: val}, {x: val}, or {m: val, b: val} m being slope and b being y-intercept'''
+        """flips tagOrId on line eqn. eqn should be either {y: val}, {x: val}, or {m: val, b: val} m being slope and b being y-intercept"""
         if len(eqn) == 0: raise InvalidEquation("Empty equation")
 
         for key, _ in eqn.items():
@@ -379,7 +382,7 @@ class Transformations:
     reflect = flip
 
     def resize(self, tagOrId: Union[int, str], scale: Real, x: Real, y: Real) -> Tuple[Union[float, int]]:
-        '''Resizes tagOrId by scale with point x, y'''
+        """Resizes tagOrId by scale with point x, y"""
         vals = self.coords(tagOrId)
         coords = [(vals[i], vals[i+1]) for i in range(0, len(vals), 2)]
         newCoords = []
@@ -396,12 +399,45 @@ class Transformations:
         self.coords(tagOrId, *newCoords)
         return newCoords
 
+    def rotate(self, tagOrId: Union[int, str], x: Real, y: Real, amount: Real, unit: str = "rad", warn: bool = True) -> Tuple[Union[float, int]]:
+        """rotate tagOrId on axis x, y by amount in degrees or radians clockwise(use negaitves for counter-clockwise)"""
+        if unit in ("d", "deg", "degree", "degrees"):
+            amount *= math.pi/180 #convert to radians
+        elif unit in ("r", "rad", "radian", "radians"):
+            pass
+        else:
+            raise InvalidUnitError("Invalid unit \"" + unit + "\"")
+        
+        angle = cmath.exp(amount*1j)
+        offset = complex(x, y)
+        newCords = []
+        cords = [
+            (self.coords(tagOrId)[i], self.coords(tagOrId)[i+1]) for i in range(0, len(self.coords(tagOrId)), 2)
+        ]
+        for xPt, yPt in cords:
+            num = angle * (complex(xPt, yPt) - offset) + offset
+            newCords.append(num.real)
+            newCords.append(num.imag)
+        
+        objType = self.tk.call(self._w, 'type', tagOrId)
+        if objType == "polygon":
+            self.coords(tagOrId, *newCords)
+        else:
+            if (warn):
+                warnings.warn(
+                    "WARNING! Canvas element of type " + objType + " is not supported. Rotation may not look as expected. " + 
+                    "Use the to_polygon() method to turn the " + objType + " into a polygon.",
+                    UnsupportedObjectType
+                )
+            self.coords(tagOrId, *newCords)
+        return newCords
+
 
 class CanvasPlus(Canvas, WidgetWindows, Transformations, AsyncTransformations):
-    '''Improved Canvas widget with more functionality to display graphical elements like lines or text.'''
+    """Improved Canvas widget with more functionality to display graphical elements like lines or text."""
 
     def clone(self, tagOrId: Union[int, str], *args: List[int]) -> int:
-        '''clones tagOrId and places is at optional coordinates, or places is on top of the first object'''
+        """clones tagOrId and places is at optional coordinates, or places is on top of the first object"""
         if len(args) == 0:
             args = self.coords(tagOrId)
         
@@ -414,7 +450,7 @@ class CanvasPlus(Canvas, WidgetWindows, Transformations, AsyncTransformations):
         )
         
     def create_arrow(self, x1: Real, y1: Real, headLength: Real, headWidth: Real, bodyLength: Real, bodyWidth: Real, **kwargs) -> int:
-        '''Create arrow with x1, y1 as the tip; headWith, headLengh as the length and width of the arrowhead; and bodyLength, bodyWidth as the length and width of the arrow body, as well as direction = val (0 by default)'''
+        """Create arrow with x1, y1 as the tip; headWith, headLengh as the length and width of the arrowhead; and bodyLength, bodyWidth as the length and width of the arrow body, as well as direction = val (0 by default)"""
         
         points = [
             x1, y1,
@@ -429,11 +465,11 @@ class CanvasPlus(Canvas, WidgetWindows, Transformations, AsyncTransformations):
         return self._create('polygon', points, kwargs)
 
     def create_circle(self, x: Real, y: Real, radius: Real, **kwargs) -> int:
-        '''Create circle with coordinates x, y, radius'''
+        """Create circle with coordinates x, y, radius"""
         return self._create('oval', [x+radius, y+radius, x-radius, y-radius], kwargs)
 
     def create_round_rectangle(self, x1: Real, y1: Real, x2: Real, y2: Real, radius: Real = 25, **kwargs) -> int:
-        '''Create circle with coordinates x1, y1, x2, y2, radius = val (default 25)'''
+        """Create circle with coordinates x1, y1, x2, y2, radius = val (default 25)"""
         points = [
             x1+radius, y1,
             x1+radius, y1,
@@ -461,18 +497,18 @@ class CanvasPlus(Canvas, WidgetWindows, Transformations, AsyncTransformations):
         return self._create('polygon', points, kwargs)
 
     def get_attributes(self, tagOrId: Union[int, str]) -> Dict:
-        '''Returns all properties of tagOrId'''
+        """Returns all properties of tagOrId"""
         properties = self.itemconfig(tagOrId)
         return {key: properties[key][-1] for key in properties}
 
     get_attr = get_attributes
 
     def __iter__(self) -> iter:
-        '''Creates iterator of everything on the canvas'''
+        """Creates iterator of everything on the canvas"""
         return iter(self.find_all())
 
     def to_polygon(self, tagOrId: Union[int, str]) -> int:
-        '''converts rectangle to polygon'''
+        """converts rectangle to polygon"""
         output = self.get_attributes(tagOrId)
 
         cords = [self.tk.getdouble(x) for x in self.tk.splitlist(self.tk.call((self._w, 'coords') + tuple([tagOrId])))]
@@ -499,10 +535,10 @@ class CanvasPlus(Canvas, WidgetWindows, Transformations, AsyncTransformations):
     def tags_bind(
         self, tagsOrIds: Union[int, str, Tuple], sequences: Union[str, Tuple] = None,
         funcs = Union[Callable, Tuple], add: bool = None) -> Union[str, List[str]]:
-        '''Binds either multiple tags to one function, or multiple tags to multiple functions with matching indicies in one function
+        """Binds either multiple tags to one function, or multiple tags to multiple functions with matching indicies in one function
         
         i.e (tag1, tag2, tag3), func1 will bind tag1, tag2, tag3 into fun1, while (tag1, tag2, tag3), (func1, func2, func3) will bind tag1 to func1, tag2 to func2, tag3 to func3.
-        '''
+        """
         if type(tagsOrIds) == int and callable(funcs): #normal tag_bind
             return self._bind((self._w, 'bind', tagsOrIds),sequences, funcs, add)
         else:
