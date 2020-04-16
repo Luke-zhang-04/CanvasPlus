@@ -13,11 +13,23 @@ Tkinter's Canvas widget has some limitations which are adressed in this package.
 Simmilar to the default tkinter Canvas widget, e.g canvas.create_rectangle, other canvas objects can be created.
 
 ## Availability ##
+To start, make sure you have CanvasPlus installed or cloned. You can do this with one of two methods.
 ### Option 1: Pip ###
 Pip install this package
 ```
 pip install CanvasPlus
 ```
+### Option 2: Github ###
+Download a zip file containing all files.
+```
+git clone https://github.com/Luke-zhang-04/CanvasPlus.git
+```
+or<br/>
+Clone the latest stable Release
+[![Screen Shot 2020-04-15 at 11 26 54 PM](https://user-images.githubusercontent.com/55749227/79411325-991b7680-7f70-11ea-9415-84e978fb76ca.png)](https://github.com/Luke-zhang-04/CanvasPlus/releases)
+## Importing ##
+There are a few ways to import the module. It is advised that you do not import the entire module.
+### If an \_\_init__.py file exists with the source code in a seperate directory (recommended) ###
 ```python
 from CanvasPlus import CanvasPlus
 CanvasPlus()
@@ -26,13 +38,7 @@ CanvasPlus()
 import CanvasPlus
 CanvasPlus.CanvasPlus()
 ```
-### Option 2: Github ###
-Download a zip file containing all files.
-```
-git clone https://github.com/Luke-zhang-04/CanvasPlus.git
-```
-or<br/>
-![Screen Shot 2020-03-31 at 2 48 23 PM](https://user-images.githubusercontent.com/55749227/78063759-b4766700-735e-11ea-8ba7-6cfe3b72bcb0.png)
+### If the source code is in the same directory as your project ###
 ```python
 from CanvasPlus.canvasplus import CanvasPlus
 CanvasPlus()
@@ -40,6 +46,15 @@ CanvasPlus()
 ```python
 import CanvasPlus.canvasplus as CanvasPlus
 CanvasPlus.CanvasPlus()
+```
+### If there is no \_\_init__.py file and the source code is in a different directory as your project (why would you do this?) ###
+```python
+from canvasplus import CanvasPlus
+CanvasPlus()
+```
+```python
+import canvasplus
+canvasplus.CanvasPlus()
 ```
 ## Usage ##
 Usage is very simple, especially for those with experience using tkinter canvas.
