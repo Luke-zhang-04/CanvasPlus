@@ -1,7 +1,7 @@
-"""The CanvasPlus package, version 1.3.0"""
+"""The CanvasPlus package, version 1.3.0-a"""
 """
 Luke-zhang-04
-CanvasPlus v1.3.0 (https://github.com/Luke-zhang-04/CanvasPlus)
+CanvasPlus v1.3.0-a (https://github.com/Luke-zhang-04/CanvasPlus)
 Copyright (C) 2020 Luke Zhang
 """
 
