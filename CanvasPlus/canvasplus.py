@@ -26,7 +26,7 @@ from typing import Tuple, Union, List, Callable, Dict
 import warnings
 
 #errors
-from CanvasPlus.errors import *
+from CanvasPlus._errors import *
 
 #regex
 import re
@@ -231,13 +231,33 @@ class AsyncTransformations:
     """define asynchronus transformation methods"""
 
     async def async_morph(
-        self, tagOrId: Union[int, str], time: float, *coords: List[float],
+        self, tagOrId, time: float, *coords: List[float],
         fps: int = 24, update: bool = True
     ) -> Tuple[Union[float, int]]:
         """Asynchronously morph tagOrId into *coords
         fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
         """
-        if len(self.coords(tagOrId)) != len(coords): raise MorphError("*coords must be the same length as the coords of the original shape")
+        if len(self.coords(tagOrId)) != len(coords):
+            raise MorphError("*coords must be the same length as the coords of the original shape")
+
+        oldCoords = self.coords(tagOrId)
+
+        timeIncrement = 1/fps
+
+        counter = 0
+        while time*fps > counter*timeIncrement*fps:
+            counter += 1
+
+            newCoords = []
+            for i in range(0, len(oldCoords), 2):
+                newCoords.append(oldCoords[i] + (coords[i] - oldCoords[i])/time/fps*counter)
+                newCoords.append(oldCoords[i+1] + (coords[i+1] - oldCoords[i+1])/time/fps*counter)
+            
+            self.coords(tagOrId, *newCoords)
+
+            if update: self.tk.call('update')
+            await asyncio.sleep(timeIncrement)
+
 
     async def async_move(
         self, tagOrId: Union[int, str], xDist: Real, yDist: Real,
