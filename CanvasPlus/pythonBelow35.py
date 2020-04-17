@@ -20,8 +20,18 @@ import cmath, math
 #warnings
 import warnings
 
-#errors
-from CanvasPlus._errors import *
+if __name__ != "__main__":
+    #errors
+    from CanvasPlus._errors import *
+
+    #templates
+    from CanvasPlus.templates import Template
+else:
+    #errors
+    from _errors import *
+
+    #templates
+    from templates import Template
 
 #regex
 import re

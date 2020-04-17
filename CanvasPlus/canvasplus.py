@@ -25,11 +25,24 @@ from typing import Tuple, Union, List, Callable, Dict
 #warnings
 import warnings
 
-#errors
-from CanvasPlus._errors import *
+if __name__ != "__main__":
+    #errors
+    from CanvasPlus._errors import *
+
+    #templates
+    from CanvasPlus.templates import Template
+else:
+    #errors
+    from _errors import *
+
+    #templates
+    from templates import Template
 
 #regex
 import re
+
+#inspect
+import inspect
 
 #asyncio
 try: import asyncio
@@ -568,6 +581,21 @@ class CanvasPlus(Canvas, WidgetWindows, Transformations, AsyncTransformations):
                     )
                 )
             return bindings
+
+    def render_template(self, template: Template, *args, **kwargs):
+        """Renders a template from the template class"""
+        coords = args if len(template.coords) == 0 else template.coords
+
+        properties = template.properties
+        for i in kwargs:
+            properties[i] = kwargs[i]
+        
+        shape = self._create(template.type, coords, properties)
+
+        if template.onRender:
+            template.onRender(shape)
+
+        return shape
 
 
 def _test():
