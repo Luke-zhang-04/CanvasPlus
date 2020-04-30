@@ -14,8 +14,7 @@ setuptools.setup(
     url = "https://github.com/Luke-zhang-04/CanvasPlus",
     packages = setuptools.find_packages(),
     install_requires = [
-        "asyncio >= 3.4.3", #only if # Python 3.6 and below
-        "CanvasPlus >= 1.3.0"
+        "asyncio >= 3.4.3" #only if # Python 3.6 and below
     ], 
     classifiers = [
         'Development Status :: 5 - Production/Stable', # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package
@@ -31,5 +30,8 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent"
     ],
-    python_requires = '>=3.3'
+    python_requires = '>=3.3',
+    custom_metadata = {
+        "Obsoletes-Dist": "CanvasPlus"
+    }
 )
