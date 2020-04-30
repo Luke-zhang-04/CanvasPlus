@@ -39,9 +39,7 @@ import re
 #asyncio
 try: import asyncio
 except ImportError:
-    print("Library Asyncio not found. You have four options\n1. use python 3.7 or higher\n2. install asyncio with pip (pip install asyncio)\n3. Download CanvasPlus version 1.2.2 which does not use asyncio, but loose async features\n4. Use the programs default mechanism which imports an older version of asyncio")
-    print("importing The asyncio package, tracking PEP 3156")
-    import CanvasPlus.asyncio_old as asyncio
+    print("Library Asyncio not found. You have four options\n1. use python 3.7 or higher\n2. install asyncio with pip (pip install asyncio)\n3. Download CanvasPlus version 1.2.2 which does not use asyncio, but loose async features\n4. Download the asyncio library from GitHub https://www.google.com/search?client=firefox-b-d&q=asyncio+github")
 
 _canvasPlusVersion = "v1.3.0"
 
