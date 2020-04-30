@@ -1,7 +1,7 @@
-"""The CanvasPlus package, version 1.3.0 for Python 3.0-3.4"""
+"""The CanvasPlus package, version 1.3.1 for Python 3.0-3.4"""
 """
 Luke-zhang-04
-CanvasPlus v1.3.0 (https://github.com/Luke-zhang-04/CanvasPlus)
+CanvasPlus v1.3.1 (https://github.com/Luke-zhang-04/CanvasPlus)
 Copyright (C) 2020 Luke Zhang
 """
 
@@ -41,7 +41,7 @@ try: import asyncio
 except ImportError:
     print("Library Asyncio not found. You have four options\n1. use python 3.7 or higher\n2. install asyncio with pip (pip install asyncio)\n3. Download CanvasPlus version 1.2.2 which does not use asyncio, but loose async features\n4. Download the asyncio library from GitHub https://www.google.com/search?client=firefox-b-d&q=asyncio+github")
 
-_canvasPlusVersion = "v1.3.0"
+_canvasPlusVersion = "v1.3.1"
 
 print("This is CanvasPlus %s" % _canvasPlusVersion)
 
