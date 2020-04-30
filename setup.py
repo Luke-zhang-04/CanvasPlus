@@ -31,8 +31,5 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent"
     ],
-    python_requires = '>=3.3',
-    custom_metadata = {
-        "Obsoletes-Dist": "CanvasPlus"
-    }
+    python_requires = '>=3.3'
 )

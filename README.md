@@ -26,7 +26,8 @@ Download a zip file containing all files.
 git clone https://github.com/Luke-zhang-04/CanvasPlus.git
 ```
 or<br/>
-Clone the latest stable Release
+Clone the latest stable Release<br/>
+[![GitHub release](https://img.shields.io/github/release/Luke-zhang-04/CanvasPlus)](https://GitHub.com/Luke-zhang-04/CanvasPlus/releases/)<br/>
 [![Screen Shot 2020-04-15 at 11 26 54 PM](https://user-images.githubusercontent.com/55749227/79411325-991b7680-7f70-11ea-9415-84e978fb76ca.png)](https://github.com/Luke-zhang-04/CanvasPlus/releases)
 ## Importing ##
 There are a few ways to import the module. It is advised that you do not import the entire module.
