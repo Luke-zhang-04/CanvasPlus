@@ -1,7 +1,7 @@
-<div style="text-align:center"><img src="assets/logo.png" /></div>
+<div align="center"><img src="assets/logo.png" /></div>
 
 ## V1.3.2 ##
-<p style="text-align:center">
+<p align="center">
     <a href="https://www.python.org/"><img alt="forthebadge made-with-python" src="http://ForTheBadge.com/images/badges/made-with-python.svg"/></a><br/>
     <a href="https://GitHub.com/Luke-zhang-04/CanvasPlus/releases/"><img alt="GitHub release" src="https://img.shields.io/github/release/Luke-zhang-04/CanvasPlus"/></a>
     <a href="https://pypi.python.org/pypi/canvasplus/"><img alt="PyPI version shields.io" src="https://img.shields.io/pypi/v/canvasplus.svg"/></a>
