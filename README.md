@@ -1,12 +1,15 @@
-# Canvas Plus #
+<div style="text-align:center"><img src="assets/logo.png" /></div>
+
 ## V1.3.2 ##
-[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
-[![PyPI version shields.io](https://img.shields.io/pypi/v/canvasplus.svg)](https://pypi.python.org/pypi/canvasplus/)
-[![GitHub release](https://img.shields.io/github/release/Luke-zhang-04/CanvasPlus)](https://GitHub.com/Luke-zhang-04/CanvasPlus/releases/)
-[![GitHub license](https://img.shields.io/github/license/Luke-zhang-04/CanvasPlus)](https://github.com/Luke-zhang-04/CanvasPlus/blob/master/LICENSE)
-[![PyPI pyversions](https://img.shields.io/pypi/pyversions/CanvasPlus.svg)](https://pypi.python.org/pypi/CanvasPlus/)
-[![Workflow Status](https://github.com/luke-zhang-04/CanvasPLus/workflows/Python-package/badge.svg)](https://github.com/Luke-zhang-04/CanvasPlus/actions?query=workflow%3APython-package)
-[![code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+<p style="text-align:center">
+    <a href="https://www.python.org/"><img alt="forthebadge made-with-python" src="http://ForTheBadge.com/images/badges/made-with-python.svg"/></a><br/>
+    <a href="https://GitHub.com/Luke-zhang-04/CanvasPlus/releases/"><img alt="GitHub release" src="https://img.shields.io/github/release/Luke-zhang-04/CanvasPlus"/></a>
+    <a href="https://pypi.python.org/pypi/canvasplus/"><img alt="PyPI version shields.io" src="https://img.shields.io/pypi/v/canvasplus.svg"/></a>
+    <a href="https://github.com/Luke-zhang-04/CanvasPlus/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/Luke-zhang-04/CanvasPlus"/></a>
+    <a href="https://pypi.python.org/pypi/CanvasPlus/"><img alt="PyPI pyversions" src="https://img.shields.io/pypi/pyversions/CanvasPlus.svg"/></a>
+    <a href="https://github.com/Luke-zhang-04/CanvasPlus/actions?query=workflow%3APython-package"><img alt="Workflow Status" src="https://github.com/luke-zhang-04/CanvasPLus/workflows/Python-package/badge.svg"/></a>
+    <a href="https://github.com/psf/black"><img alt="code style" src="https://img.shields.io/badge/code%20style-black-000000.svg"/></a>
+</p>
 
 An improved Canvas widget for tkinter with more functionality to display graphical elements like lines or text. 
 
