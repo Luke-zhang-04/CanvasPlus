@@ -1,11 +1,12 @@
 # Canvas Plus #
-## V1.3.1 ##
+## V1.3.2 ##
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 [![PyPI version shields.io](https://img.shields.io/pypi/v/canvasplus.svg)](https://pypi.python.org/pypi/canvasplus/)
 [![GitHub release](https://img.shields.io/github/release/Luke-zhang-04/CanvasPlus)](https://GitHub.com/Luke-zhang-04/CanvasPlus/releases/)
 [![GitHub license](https://img.shields.io/github/license/Luke-zhang-04/CanvasPlus)](https://github.com/Luke-zhang-04/CanvasPlus/blob/master/LICENSE)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/CanvasPlus.svg)](https://pypi.python.org/pypi/CanvasPlus/)
 [![Workflow Status](https://github.com/luke-zhang-04/CanvasPLus/workflows/Python-package/badge.svg)](https://github.com/Luke-zhang-04/CanvasPlus/actions?query=workflow%3APython-package)
+[![code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 An improved Canvas widget for tkinter with more functionality to display graphical elements like lines or text. 
 
