@@ -48,9 +48,6 @@ else:
     # templates
     from templates import Template
 
-# inspect
-import inspect
-
 # asyncio
 try:
     import asyncio
