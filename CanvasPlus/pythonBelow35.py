@@ -1,6 +1,5 @@
-"""The CanvasPlus package, version 1.3.2 for Python 3.0-3.4"""
-"""
-Luke-zhang-04
+"""The CanvasPlus package, version 1.3.2 for Python 3.0-3.4."""
+"""Luke-zhang-04
 CanvasPlus (https://github.com/Luke-zhang-04/CanvasPlus)
 Copyright (C) 2020 Luke Zhang
 """
@@ -81,96 +80,84 @@ class WidgetWindows:
         return self.create_window(x, y, **windowKwargs), newWidget
 
     def create_button(self, x, y, **kwargs):
-        """
-        create button with cordinates x y
+        """create button with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Button widget while "anchor" will be allocated to the window creation
         """
         return self._create_widget(x, y, Button, **kwargs)
 
     def create_checkbutton(self, x, y, **kwargs):
-        """
-        create checkbutton with cordinates x y
+        """create checkbutton with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Checkbutton widget while "anchor" will be allocated to the window creation
         """
         return self._create_widget(x, y, Checkbutton, **kwargs)
 
     def create_entry(self, x, y, **kwargs):
-        """
-        create text entry box with cordinates x y
+        """create text entry box with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Entry widget while "anchor" will be allocated to the window creation
         """
         return self._create_widget(x, y, Entry, **kwargs)
 
     def create_frame(self, x, y, **kwargs):
-        """
-        create frame with cordinates x y
+        """create frame with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Frame widget while "anchor" will be allocated to the window creation
         """
         return self._create_widget(x, y, Button, **kwargs)
 
     def create_label(self, x, y, **kwargs):
-        """
-        create label with cordinates x y
+        """create label with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Label widget while "anchor" will be allocated to the window creation
         """
         return self._create_widget(x, y, Label, **kwargs)
 
     def create_labelframe(self, x, y, **kwargs):
-        """
-        create label with cordinates x y
+        """create label with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the LabelFrame widget while "anchor" will be allocated to the window creation
         """
         return self._create_widget(x, y, LabelFrame, **kwargs)
 
     def create_listbox(self, x, y, **kwargs):
-        """
-        create listbox with cordinates x y
+        """create listbox with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Listbox widget while "anchor" will be allocated to the window creation
         """
         return self._create_widget(x, y, Listbox, **kwargs)
 
     def create_panedwindow(self, x, y, **kwargs):
-        """
-        create panned window with cordinates x y
+        """create panned window with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the PanedWindow widget while "anchor" will be allocated to the window creation
         """
         return self._create_widget(x, y, PanedWindow, **kwargs)
 
     def create_radiobutton(self, x, y, **kwargs):
-        """
-        create radiobutton with cordinates x y
+        """create radiobutton with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Radiobutton widget while "anchor" will be allocated to the window creation
         """
         return self._create_widget(x, y, Radiobutton, **kwargs)
 
     def create_scale(self, x, y, **kwargs):
-        """
-        create scale with cordinates x y
+        """create scale with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Scale widget while "anchor" will be allocated to the window creation
         """
         return self._create_widget(x, y, Scale, **kwargs)
 
     def create_scrollbar(self, x, y, **kwargs):
-        """
-        create scrollbar with cordinates x y
+        """create scrollbar with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Scrollbar widget while "anchor" will be allocated to the window creation
         """
         return self._create_widget(x, y, Scrollbar, **kwargs)
 
     def create_spinbox(self, x, y, **kwargs):
-        """
-        create spinbox with cordinates x y
+        """create spinbox with cordinates x y
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Spinbox widget while "anchor" will be allocated to the window creation
         """
@@ -278,6 +265,7 @@ class AsyncTransformations:
 
     async def async_move(self, tagOrId, xDist, yDist, time, fps=24, update=True):
         """Asynchronously move tagOrId by xDist and yDist (x distance, y distance)
+
         fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
         """
         timeIncrement, moveIncrement = (
@@ -299,6 +287,7 @@ class AsyncTransformations:
 
     async def async_resize(self, tagOrId, scale, x, y, time, fps=24, update=True):
         """Asynchronously resize tagOrId with point x, y and scale
+
         fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
         """
         scale *= -1
@@ -318,6 +307,7 @@ class AsyncTransformations:
         self, tagOrId, x, y, time, amount, unit="rad", warn=True, fps=24, update=True,
     ):
         """Asynchronously rotate tagOrId on axis x, y by amount in degrees or radians clockwise (use negaitves for counter-clockwise)
+        
         fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
         """
         if unit in ("d", "deg", "degree", "degrees"):
@@ -641,6 +631,7 @@ class CanvasPlus(Canvas, WidgetWindows, Transformations, AsyncTransformations):
 def _test():
     # Imports
     from tkinter import Tk, StringVar
+
     # import math #already imported
 
     # set up canvas
