@@ -4,6 +4,7 @@ CanvasPlus (https://github.com/Luke-zhang-04/CanvasPlus)
 Copyright (C) 2020 Luke Zhang
 """
 
+
 class Template:
     """Make templates for repeated display."""
 
