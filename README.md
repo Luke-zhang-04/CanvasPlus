@@ -9,6 +9,7 @@
     <a href="https://pypi.python.org/pypi/CanvasPlus/"><img alt="PyPI pyversions" src="https://img.shields.io/pypi/pyversions/CanvasPlus.svg"/></a>
     <a href="https://github.com/Luke-zhang-04/CanvasPlus/actions?query=workflow%3APython-package"><img alt="Workflow Status" src="https://github.com/luke-zhang-04/CanvasPLus/workflows/Python-package/badge.svg"/></a>
     <a href="https://github.com/psf/black"><img alt="code style" src="https://img.shields.io/badge/code%20style-black-000000.svg"/></a>
+    <a href="https://app.codacy.com/manual/luke.zhang2004/CanvasPlus?utm_source=github.com&utm_medium=referral&utm_content=Luke-zhang-04/CanvasPlus&utm_campaign=Badge_Grade_Dashboard"><img alt="Codacy Badge" src="https://api.codacy.com/project/badge/Grade/37320c28d7e348a3b378756a6da80e62"/></a>
 </p>
 
 An improved Canvas widget for tkinter with more functionality to display graphical elements like lines or text. 
@@ -31,7 +32,6 @@ git clone https://github.com/Luke-zhang-04/CanvasPlus.git
 ```
 or<br/>
 Clone the latest stable Release<br/>
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/37320c28d7e348a3b378756a6da80e62)](https://app.codacy.com/manual/luke.zhang2004/CanvasPlus?utm_source=github.com&utm_medium=referral&utm_content=Luke-zhang-04/CanvasPlus&utm_campaign=Badge_Grade_Dashboard)
 [![GitHub release](https://img.shields.io/github/release/Luke-zhang-04/CanvasPlus)](https://GitHub.com/Luke-zhang-04/CanvasPlus/releases/)<br/>
 [![Screen Shot 2020-04-15 at 11 26 54 PM](https://user-images.githubusercontent.com/55749227/79411325-991b7680-7f70-11ea-9415-84e978fb76ca.png)](https://github.com/Luke-zhang-04/CanvasPlus/releases)
 ## Importing ##
