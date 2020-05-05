@@ -31,6 +31,7 @@ git clone https://github.com/Luke-zhang-04/CanvasPlus.git
 ```
 or<br/>
 Clone the latest stable Release<br/>
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/37320c28d7e348a3b378756a6da80e62)](https://app.codacy.com/manual/luke.zhang2004/CanvasPlus?utm_source=github.com&utm_medium=referral&utm_content=Luke-zhang-04/CanvasPlus&utm_campaign=Badge_Grade_Dashboard)
 [![GitHub release](https://img.shields.io/github/release/Luke-zhang-04/CanvasPlus)](https://GitHub.com/Luke-zhang-04/CanvasPlus/releases/)<br/>
 [![Screen Shot 2020-04-15 at 11 26 54 PM](https://user-images.githubusercontent.com/55749227/79411325-991b7680-7f70-11ea-9415-84e978fb76ca.png)](https://github.com/Luke-zhang-04/CanvasPlus/releases)
 ## Importing ##
