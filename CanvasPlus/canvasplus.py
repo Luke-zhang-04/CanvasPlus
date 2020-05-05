@@ -107,7 +107,7 @@ class WidgetWindows:
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Frame widget while "anchor" will be allocated to the window creation
         """
-        return self._create_widget(x, y, Button, **kwargs)
+        return self._create_widget(x, y, Frame, **kwargs)
 
     def create_label(self, x: Real, y: Real, **kwargs) -> Tuple[int, Label]:
         """create label with cordinates x y.
@@ -229,179 +229,173 @@ class AnalyticGeometry:
         return poi
 
 
-try:
+class AsyncTransformations:
+    """define asynchronus transformation methods."""
 
-    class AsyncTransformations:
-        """define asynchronus transformation methods."""
-
-        async def async_morph(
-            self,
-            tagOrId,
-            time: float,
-            *coords: List[float],
-            fps: int = 24,
-            update: bool = True
-        ) -> Tuple[Union[float, int]]:
-            """Asynchronously morph tagOrId into *coords.
-            
-            fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
-            """
-            if len(self.coords(tagOrId)) != len(coords):
-                raise MorphError(
-                    "*coords must be the same length as the coords of the original shape"
-                )
-
-            oldCoords = self.coords(tagOrId)
-
-            timeIncrement = 1 / fps
-
-            counter = 0
-            while time * fps > counter * timeIncrement * fps:
-                counter += 1
-
-                newCoords = []
-                for i in range(0, len(oldCoords), 2):
-                    newCoords.append(
-                        oldCoords[i] + (coords[i] - oldCoords[i]) / time / fps * counter
-                    )
-                    newCoords.append(
-                        oldCoords[i + 1]
-                        + (coords[i + 1] - oldCoords[i + 1]) / time / fps * counter
-                    )
-
-                self.coords(tagOrId, *newCoords)
-
-                if update:
-                    self.tk.call("update")
-                await asyncio.sleep(timeIncrement)
-
-        async def async_move(
-            self,
-            tagOrId: Union[int, str],
-            xDist: Real,
-            yDist: Real,
-            time: float,
-            fps: int = 24,
-            update: bool = True,
-        ) -> Tuple[Union[float, int]]:
-            """Asynchronously move tagOrId by xDist and yDist (x distance, y distance).
-            
-            fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
-            """
-            timeIncrement, moveIncrement = (
-                1 / fps,
-                (xDist / time / fps, yDist / time / fps),
+    async def async_morph(
+        self,
+        tagOrId,
+        time: float,
+        *coords: List[float],
+        fps: int = 24,
+        update: bool = True
+    ) -> Tuple[Union[float, int]]:
+        """Asynchronously morph tagOrId into *coords.
+        
+        fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
+        """
+        if len(self.coords(tagOrId)) != len(coords):
+            raise MorphError(
+                "*coords must be the same length as the coords of the original shape"
             )
 
-            counter = 0
-            while time * fps > counter * timeIncrement * fps:
-                counter += 1
+        oldCoords = self.coords(tagOrId)
 
-                self.tk.call(
-                    (self._w, "move") + (tagOrId, moveIncrement[0], moveIncrement[1])
+        timeIncrement = 1 / fps
+
+        counter = 0
+        while time * fps > counter * timeIncrement * fps:
+            counter += 1
+
+            newCoords = []
+            for i in range(0, len(oldCoords), 2):
+                newCoords.append(
+                    oldCoords[i] + (coords[i] - oldCoords[i]) / time / fps * counter
+                )
+                newCoords.append(
+                    oldCoords[i + 1]
+                    + (coords[i + 1] - oldCoords[i + 1]) / time / fps * counter
                 )
 
-                if update:
-                    self.tk.call("update")
-                await asyncio.sleep(timeIncrement)
+            self.coords(tagOrId, *newCoords)
 
-        async def async_resize(
-            self,
-            tagOrId: Union[int, str],
-            scale: Real,
-            x: Real,
-            y: Real,
-            time: float,
-            fps: int = 24,
-            update: bool = True,
-        ) -> Tuple[Union[float, int]]:
-            """Asynchronously resize tagOrId with point x, y and scale.
-            
-            fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
-            """
+            if update:
+                self.tk.call("update")
+            await asyncio.sleep(timeIncrement)
 
-            timeIncrement = 1 / fps
+    async def async_move(
+        self,
+        tagOrId: Union[int, str],
+        xDist: Real,
+        yDist: Real,
+        time: float,
+        fps: int = 24,
+        update: bool = True,
+    ) -> Tuple[Union[float, int]]:
+        """Asynchronously move tagOrId by xDist and yDist (x distance, y distance).
+        
+        fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
+        """
+        timeIncrement, moveIncrement = (
+            1 / fps,
+            (xDist / time / fps, yDist / time / fps),
+        )
 
-            vals = self.coords(tagOrId)
-            coords = [(vals[i], vals[i + 1]) for i in range(0, len(vals), 2)]
+        counter = 0
+        while time * fps > counter * timeIncrement * fps:
+            counter += 1
+
+            self.tk.call(
+                (self._w, "move") + (tagOrId, moveIncrement[0], moveIncrement[1])
+            )
+
+            if update:
+                self.tk.call("update")
+            await asyncio.sleep(timeIncrement)
+
+    async def async_resize(
+        self,
+        tagOrId: Union[int, str],
+        scale: Real,
+        x: Real,
+        y: Real,
+        time: float,
+        fps: int = 24,
+        update: bool = True,
+    ) -> Tuple[Union[float, int]]:
+        """Asynchronously resize tagOrId with point x, y and scale.
+        
+        fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
+        """
+
+        timeIncrement = 1 / fps
+
+        vals = self.coords(tagOrId)
+        coords = [(vals[i], vals[i + 1]) for i in range(0, len(vals), 2)]
+
+        if scale < 1:
+            scale = 1 - scale
+
+        counter = 0
+        while time * fps > counter * timeIncrement * fps:
+            counter += 1
+            newCoords = []
 
             if scale < 1:
-                scale = 1 - scale
+                for x1, y1 in coords:
+                    newCoords.append(x1 + ((x - x1) * scale) / time / fps * counter)
+                    newCoords.append(y1 - ((y1 - y) * scale) / time / fps * counter)
+            elif scale > 1:
+                for x1, y1 in coords:
+                    newCoords.append(
+                        x1 + ((x1 - x) * (scale - 1)) / time / fps * counter
+                    )
+                    newCoords.append(
+                        y1 - ((y - y1) * (scale - 1)) / time / fps * counter
+                    )
 
-            counter = 0
-            while time * fps > counter * timeIncrement * fps:
-                counter += 1
-                newCoords = []
+            self.coords(tagOrId, *newCoords)
 
-                if scale < 1:
-                    for x1, y1 in coords:
-                        newCoords.append(x1 + ((x - x1) * scale) / time / fps * counter)
-                        newCoords.append(y1 - ((y1 - y) * scale) / time / fps * counter)
-                elif scale > 1:
-                    for x1, y1 in coords:
-                        newCoords.append(
-                            x1 + ((x1 - x) * (scale - 1)) / time / fps * counter
-                        )
-                        newCoords.append(
-                            y1 - ((y - y1) * (scale - 1)) / time / fps * counter
-                        )
+            if update:
+                self.tk.call("update")
+            await asyncio.sleep(timeIncrement)
 
-                self.coords(tagOrId, *newCoords)
+    async def async_rotate(
+        self,
+        tagOrId: Union[int, str],
+        x: Real,
+        y: Real,
+        time: float,
+        amount: Real,
+        unit: str = "rad",
+        warn: bool = True,
+        fps: int = 24,
+        update: bool = True,
+    ) -> Tuple[Union[float, int]]:
+        """Asynchronously rotate tagOrId on axis x, y by amount in degrees or radians clockwise (use negaitves for counter-clockwise).
+        
+        fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
+        """
+        if unit in ("d", "deg", "degree", "degrees"):
+            amount *= math.pi / 180  # convert to radians
+        elif unit in ("r", "rad", "radian", "radians"):
+            pass
+        else:
+            raise InvalidUnitError('Invalid unit "' + unit + '"')
 
-                if update:
-                    self.tk.call("update")
-                await asyncio.sleep(timeIncrement)
+        if self.tk.call(self._w, "type", tagOrId) != "polygon" and warn:
+            warnings.warn(
+                "WARNING! Canvas element of type "
+                + self.tk.call(self._w, "type", tagOrId)
+                + " is not supported. Rotation may not look as expected. "
+                + "Use the to_polygon() method to turn the "
+                + self.tk.call(self._w, "type", tagOrId)
+                + " into a polygon.",
+                UnsupportedObjectType,
+            )
 
-        async def async_rotate(
-            self,
-            tagOrId: Union[int, str],
-            x: Real,
-            y: Real,
-            time: float,
-            amount: Real,
-            unit: str = "rad",
-            warn: bool = True,
-            fps: int = 24,
-            update: bool = True,
-        ) -> Tuple[Union[float, int]]:
-            """Asynchronously rotate tagOrId on axis x, y by amount in degrees or radians clockwise (use negaitves for counter-clockwise).
-            
-            fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
-            """
-            if unit in ("d", "deg", "degree", "degrees"):
-                amount *= math.pi / 180  # convert to radians
-            elif unit in ("r", "rad", "radian", "radians"):
-                pass
-            else:
-                raise InvalidUnitError('Invalid unit "' + unit + '"')
+        timeIncrement, moveIncrement = 1 / fps, amount / time / fps
 
-            if self.tk.call(self._w, "type", tagOrId) != "polygon" and warn:
-                warnings.warn(
-                    "WARNING! Canvas element of type "
-                    + self.tk.call(self._w, "type", tagOrId)
-                    + " is not supported. Rotation may not look as expected. "
-                    + "Use the to_polygon() method to turn the "
-                    + self.tk.call(self._w, "type", tagOrId)
-                    + " into a polygon.",
-                    UnsupportedObjectType
-                )
+        counter = 0
+        while (
+            time * fps > counter * timeIncrement * fps
+        ):  # use while loop in case of float
+            counter += 1
+            self.rotate(tagOrId, x, y, moveIncrement, unit="r", warn=False)
 
-            timeIncrement, moveIncrement = 1 / fps, amount / time / fps
-
-            counter = 0
-            while (
-                time * fps > counter * timeIncrement * fps
-            ):  # use while loop in case of float
-                counter += 1
-                self.rotate(tagOrId, x, y, moveIncrement, unit="r", warn=False)
-
-                if update:
-                    self.tk.call("update")
-                await asyncio.sleep(timeIncrement)
-
-
-except SyntaxError:
-    print("Your Python version does not support asynchronus IO")
+            if update:
+                self.tk.call("update")
+            await asyncio.sleep(timeIncrement)
 
 
 class Transformations:
@@ -514,7 +508,7 @@ class Transformations:
                     + "Use the to_polygon() method to turn the "
                     + objType
                     + " into a polygon.",
-                    UnsupportedObjectType
+                    UnsupportedObjectType,
                 )
             self.coords(tagOrId, *newCords)
         return newCords

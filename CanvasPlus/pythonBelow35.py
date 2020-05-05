@@ -102,7 +102,7 @@ class WidgetWindows:
 
         Kwargs are automatically allocated to the correct element, i.e background will be "allocated" towards the Frame widget while "anchor" will be allocated to the window creation
         """
-        return self._create_widget(x, y, Button, **kwargs)
+        return self._create_widget(x, y, Frame, **kwargs)
 
     def create_label(self, x, y, **kwargs):
         """create label with cordinates x y.
@@ -322,7 +322,7 @@ class AsyncTransformations:
                 + "Use the to_polygon() method to turn the "
                 + self.tk.call(self._w, "type", tagOrId)
                 + " into a polygon.",
-                UnsupportedObjectType
+                UnsupportedObjectType,
             )
 
         timeIncrement, moveIncrement = 1 / fps, amount / time / fps
@@ -439,7 +439,7 @@ class Transformations:
                     + "Use the to_polygon() method to turn the "
                     + objType
                     + " into a polygon.",
-                    UnsupportedObjectType
+                    UnsupportedObjectType,
                 )
             self.coords(tagOrId, *newCords)
         return newCords
