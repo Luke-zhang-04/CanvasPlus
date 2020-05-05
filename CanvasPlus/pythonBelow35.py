@@ -370,7 +370,7 @@ class Transformations:
 
         newPts = []  # new points
 
-        for i in range(len(POIs)):  # get new points
+        for i, _ in enumerate(POIs):  # get new points
             newPts.append(
                 (
                     POIs[i][0] - (cords[i][0] - POIs[i][0]),

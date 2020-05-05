@@ -13,7 +13,6 @@
     <a href="https://app.codacy.com/manual/luke.zhang2004/CanvasPlus?utm_source=github.com&utm_medium=referral&utm_content=Luke-zhang-04/CanvasPlus&utm_campaign=Badge_Grade_Dashboard"><img alt="Codacy Badge" src="https://api.codacy.com/project/badge/Grade/37320c28d7e348a3b378756a6da80e62"/></a>
 </p>
 
-
 An improved Canvas widget for tkinter with more functionality to display graphical elements like lines or text. 
 
 Tkinter's Canvas widget has some limitations which are adressed in this package.
