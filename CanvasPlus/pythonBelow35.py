@@ -640,8 +640,8 @@ class CanvasPlus(Canvas, WidgetWindows, Transformations, AsyncTransformations):
 
 def _test():
     # Imports
-    from tkinter import Tk, StringVar, DoubleVar
-    import math
+    from tkinter import Tk, StringVar
+    # import math #already imported
 
     # set up canvas
     root = Tk()

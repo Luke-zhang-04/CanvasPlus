@@ -1,7 +1,7 @@
 class Template:
     """Make templates for repeated display"""
 
-    def __init__(self, *args, type="", onRender=None, **kwargs):
+    def __init__(self, *args, type_="", onRender=None, **kwargs):
         """
         Make templates for repeated display
         \nargs:
@@ -12,7 +12,7 @@ class Template:
             args,
             onRender,
             kwargs,
-            type,
+            type_,
         )
 
     def copy(self):
