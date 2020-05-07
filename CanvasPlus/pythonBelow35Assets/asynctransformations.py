@@ -5,7 +5,7 @@ Copyright (C) 2020 Luke Zhang
 """
 
 import warnings
-import cmath, math
+import math
 
 try:
     import asyncio
