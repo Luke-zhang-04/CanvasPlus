@@ -8,7 +8,6 @@ Copyright (C) 2020 Luke Zhang
 # For Python 3.5 and above, use the main CanvasPlus folder
 
 from tkinter import Canvas
-import cmath, math
 
 if __name__ != "__main__":
     from CanvasPlus._errors import *

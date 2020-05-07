@@ -4,10 +4,8 @@ CanvasPlus v1.3.0 (https://github.com/Luke-zhang-04/CanvasPlus)
 Copyright (C) 2020 Luke Zhang
 """
 
-from typing import Tuple, Union, List
-from numbers import Real
 import warnings
-import math
+import cmath, math
 
 try:
     import asyncio
@@ -20,18 +18,10 @@ from CanvasPlus._errors import InvalidUnitError, UnsupportedObjectType, MorphErr
 
 
 class AsyncTransformations:
-    """define asynchronus transformation methods."""
+    """define asynchronus transformation methodsscreen.update()"""
 
-    async def async_morph(
-        self,
-        tagOrId,
-        time: float,
-        *coords: List[float],
-        fps: int = 24,
-        update: bool = True
-    ) -> Tuple[Union[float, int]]:
+    async def async_morph(self, tagOrId, time, *coords, fps=24, update=True):
         """Asynchronously morph tagOrId into *coords.
-        
         fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
         """
         if len(self.coords(tagOrId)) != len(coords):
@@ -63,17 +53,9 @@ class AsyncTransformations:
                 self.tk.call("update")
             await asyncio.sleep(timeIncrement)
 
-    async def async_move(
-        self,
-        tagOrId: Union[int, str],
-        xDist: Real,
-        yDist: Real,
-        time: float,
-        fps: int = 24,
-        update: bool = True,
-    ) -> Tuple[Union[float, int]]:
+    async def async_move(self, tagOrId, xDist, yDist, time, fps=24, update=True):
         """Asynchronously move tagOrId by xDist and yDist (x distance, y distance).
-        
+
         fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
         """
         timeIncrement, moveIncrement = (
@@ -93,65 +75,27 @@ class AsyncTransformations:
                 self.tk.call("update")
             await asyncio.sleep(timeIncrement)
 
-    async def async_resize(
-        self,
-        tagOrId: Union[int, str],
-        scale: Real,
-        x: Real,
-        y: Real,
-        time: float,
-        fps: int = 24,
-        update: bool = True,
-    ) -> Tuple[Union[float, int]]:
+    async def async_resize(self, tagOrId, scale, x, y, time, fps=24, update=True):
         """Asynchronously resize tagOrId with point x, y and scale.
-        
+
         fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
         """
-
-        timeIncrement = 1 / fps
-
-        vals = self.coords(tagOrId)
-        coords = [(vals[i], vals[i + 1]) for i in range(0, len(vals), 2)]
-
-        if scale < 1:
-            scale = 1 - scale
+        scale *= -1
+        timeIncrement, moveIncrement = 1 / fps, scale / time / fps
 
         counter = 0
         while time * fps > counter * timeIncrement * fps:
             counter += 1
-            newCoords = []
 
-            if scale < 1:
-                for x1, y1 in coords:
-                    newCoords.append(x1 + ((x - x1) * scale) / time / fps * counter)
-                    newCoords.append(y1 - ((y1 - y) * scale) / time / fps * counter)
-            elif scale > 1:
-                for x1, y1 in coords:
-                    newCoords.append(
-                        x1 + ((x1 - x) * (scale - 1)) / time / fps * counter
-                    )
-                    newCoords.append(
-                        y1 - ((y - y1) * (scale - 1)) / time / fps * counter
-                    )
-
-            self.coords(tagOrId, *newCoords)
+            self.resize(tagOrId, moveIncrement, x, y)
 
             if update:
                 self.tk.call("update")
             await asyncio.sleep(timeIncrement)
 
     async def async_rotate(
-        self,
-        tagOrId: Union[int, str],
-        x: Real,
-        y: Real,
-        time: float,
-        amount: Real,
-        unit: str = "rad",
-        warn: bool = True,
-        fps: int = 24,
-        update: bool = True,
-    ) -> Tuple[Union[float, int]]:
+        self, tagOrId, x, y, time, amount, unit="rad", warn=True, fps=24, update=True,
+    ):
         """Asynchronously rotate tagOrId on axis x, y by amount in degrees or radians clockwise (use negaitves for counter-clockwise).
         
         fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
