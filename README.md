@@ -11,7 +11,7 @@
     <a href="https://github.com/Luke-zhang-04/CanvasPlus/actions?query=workflow%3APython-package"><img alt="Workflow Status" src="https://img.shields.io/github/workflow/status/luke-zhang-04/CanvasPlus/Python-package?logo=python&logoColor=blue"/></a><br/>
     <a href="https://github.com/psf/black"><img alt="code style" src="https://img.shields.io/badge/code%20style-black-000000.svg?logo=python&logoColor=blue"/></a>
     <a href="https://app.codacy.com/manual/luke.zhang2004/CanvasPlus?utm_source=github.com&utm_medium=referral&utm_content=Luke-zhang-04/CanvasPlus&utm_campaign=Badge_Grade_Dashboard"><img alt="Codacy Badge" src="https://api.codacy.com/project/badge/Grade/37320c28d7e348a3b378756a6da80e62"/></a>
-    <a href=""><img alt="code maintainability" src="https://img.shields.io/codeclimate/maintainability-percentage/Luke-zhang-04/CanvasPlus?logo=code-climate"/></a>
+    <a href="https://codeclimate.com/github/Luke-zhang-04/CanvasPlus"><img alt="code maintainability" src="https://img.shields.io/codeclimate/maintainability-percentage/Luke-zhang-04/CanvasPlus?logo=code-climate"/></a>
 </p>
 
 An improved Canvas widget for tkinter with more functionality to display graphical elements like lines or text. 
