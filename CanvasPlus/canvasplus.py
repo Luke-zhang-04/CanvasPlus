@@ -7,26 +7,16 @@ Copyright (C) 2020 Luke Zhang
 # This file is compatible with Python 3.5 and above. For python 3.4 and below, use the code in pythonBelow3.5
 
 from tkinter import Canvas
-
-import cmath, math
-
 from numbers import Real
-
 from typing import Tuple, Union, List, Callable, Dict
-
-import warnings
 
 if __name__ != "__main__":
     from CanvasPlus._errors import *
-
     from CanvasPlus.templates import Template
-
     from CanvasPlus.assets import WidgetWindows, AsyncTransformations, Transformations
 else:
     from _errors import *
-
     from templates import Template
-
     from assets import WidgetWindows, AsyncTransformations, Transformations
 
 try:

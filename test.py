@@ -1,7 +1,8 @@
 def _test():
     # Imports
     from tkinter import Tk, StringVar
-    from CanvasPlus import CanvasPlus, _canvasPlusVersion
+    from CanvasPlus import CanvasPlus
+    from CanvasPlus.canvasplus import _canvasPlusVersion
     import math  # already imported
 
     # set up canvas

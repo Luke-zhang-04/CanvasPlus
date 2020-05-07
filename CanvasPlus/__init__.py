@@ -5,7 +5,7 @@ Copyright (C) 2020 Luke Zhang
 """
 
 try:
-    from CanvasPlus.canvasplus import CanvasPlus, _canvasPlusVersion
+    from CanvasPlus.canvasplus import CanvasPlus
 except ImportError:
     import sys
 
@@ -13,6 +13,6 @@ except ImportError:
         "Your python version %s is not compatible with the standard canvasplus library. For compatibility, another file is being imported."
         % sys.version
     )
-    from CanvasPlus.pythonBelow35 import CanvasPlus, _canvasPlusVersion
+    from CanvasPlus.pythonBelow35 import CanvasPlus
 
 from CanvasPlus.templates import Template

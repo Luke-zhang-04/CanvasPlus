@@ -4,9 +4,19 @@ CanvasPlus v1.3.0 (https://github.com/Luke-zhang-04/CanvasPlus)
 Copyright (C) 2020 Luke Zhang
 """
 
-# typing
 from typing import Tuple, Union, List
 from numbers import Real
+import warnings
+import cmath, math
+
+try:
+    import asyncio
+except ImportError:
+    print(
+        "Library Asyncio not found. You have four options\n1. use python 3.7 or higher\n2. install asyncio with pip (pip install asyncio)\n3. Download CanvasPlus version 1.2.2 which does not use asyncio, but loose async features\n4. Download the asyncio library from GitHub https://www.google.com/search?client=firefox-b-d&q=asyncio+github"
+    )
+
+from CanvasPlus._errors import InvalidUnitError, UnsupportedObjectType
 
 
 class Error(Exception):

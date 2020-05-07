@@ -6,12 +6,13 @@ Copyright (C) 2020 Luke Zhang
 
 from typing import Union, Dict, Tuple
 from numbers import Real
-
-
-class Error(Exception):
-    """Base class for other exceptions."""
-
-    pass
+import warnings
+import math, cmath
+from CanvasPlus._errors import (
+    InvalidUnitError,
+    InvalidEquation,
+    UnsupportedObjectType,
+)
 
 
 class AnalyticGeometry:
