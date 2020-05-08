@@ -36,7 +36,6 @@ class AnalyticGeometry:
     @staticmethod
     def perpendicular_slope(eqn: Dict) -> Union[float, int, None]:
         """gets the perpendicular slope of an equation."""
-
         if "m" not in eqn or not eqn["m"]:
             if "y" in eqn:
                 perpendicular = None
@@ -52,36 +51,31 @@ class AnalyticGeometry:
     @staticmethod
     def get_poi(eqn1: Dict, eqn2: Dict) -> Tuple[Union[float, int]]:
         """gets the point of intersection between two lines."""
+        poi = ()
 
-        def _is_flat(eqn1, eqn2):
-            flat = False
+        flat = False
+        if "x" in eqn1:
+            flat = eqn1["m"] in (None, 0) and eqn2["m"] in (None, 0)
+        elif "y" in eqn1:
+            flat = eqn2["m"] in (None, 0) and eqn1["m"] in (None, 0)
+
+        if flat:
             if "x" in eqn1:
-                flat = eqn1["m"] in (None, 0) and eqn2["m"] in (None, 0)
-            elif "y" in eqn1:
-                flat = eqn2["m"] in (None, 0) and eqn1["m"] in (None, 0)
-
-            return flat
-
-        def _get_poi(flat, eqn1, eqn2):
-            if flat:
-                if "x" in eqn1:
-                    poi = float(eqn1["x"]), float(eqn2["y"])
-                else:
-                    poi = float(eqn2["x"]), float(eqn1["y"])
+                poi = float(eqn1["x"]), float(eqn2["y"])
             else:
-                if "b" not in eqn1:
-                    eqn1["b"] = 0
-                if "b" not in eqn2:
-                    eqn2["b"] = 0
-                x = (float(eqn1["b"]) - float(eqn2["b"])) / (
-                    float(eqn2["m"]) - float(eqn1["m"])
-                )
-                y = float(eqn1["m"]) * x + float(eqn1["b"])
-                poi = (x, y)
+                poi = float(eqn2["x"]), float(eqn1["y"])
+        else:
+            if "b" not in eqn1:
+                eqn1["b"] = 0
+            if "b" not in eqn2:
+                eqn2["b"] = 0
+            x = (float(eqn1["b"]) - float(eqn2["b"])) / (
+                float(eqn2["m"]) - float(eqn1["m"])
+            )
+            y = float(eqn1["m"]) * x + float(eqn1["b"])
+            poi = (x, y)
 
-            return poi
-
-        return _get_poi(_is_flat(eqn1, eqn2), eqn1, eqn2)
+        return poi
 
 
 class Transformations:
@@ -89,24 +83,6 @@ class Transformations:
 
     def flip(self, tagOrId: Union[int, str], **eqn: Dict) -> Tuple[Union[float, int]]:
         """flips tagOrId on line eqn. eqn should be either {y: val}, {x: val}, or {m: val, b: val} m being slope and b being y-intercept."""
-
-        def _get_new_pts(pois):
-            newPts = []
-            for i, _ in enumerate(POIs):  # get new points
-                newPts.append(
-                    (
-                        POIs[i][0] - (cords[i][0] - POIs[i][0]),
-                        (-(POIs[i][1]) - cords[i][1]) - POIs[i][1],
-                    )
-                )
-
-            newCords = []
-            for i in newPts:
-                newCords.append(i[0])
-                newCords.append(i[1])
-
-            return newPts, newCords
-
         if len(eqn) == 0:
             raise InvalidEquation("Empty equation")
 
@@ -131,7 +107,20 @@ class Transformations:
         # Points of intersect
         POIs = [AnalyticGeometry.get_poi(eqn, i) for i in perEqns]
 
-        newPts, newCords = _get_new_pts(POIs)  # new points
+        newPts = []  # new points
+
+        for i, _ in enumerate(POIs):  # get new points
+            newPts.append(
+                (
+                    POIs[i][0] - (cords[i][0] - POIs[i][0]),
+                    (-(POIs[i][1]) - cords[i][1]) - POIs[i][1],
+                )
+            )
+
+        newCords = []
+        for i in newPts:
+            newCords.append(i[0])
+            newCords.append(i[1])
 
         self.coords(tagOrId, *newCords)
         return newPts
