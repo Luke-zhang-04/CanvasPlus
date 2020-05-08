@@ -42,10 +42,7 @@ class AnalyticGeometry:
             elif "x" in eqn:
                 perpendicular = 0
         else:
-            if float(eqn["m"]) == 0:
-                perpendicular = None
-            else:
-                perpendicular = -(1 / float(eqn["m"]))
+            perpendicular = None if float(eqn["m"]) == 0 else -(1 / float(eqn["m"]))
         return perpendicular
 
     @staticmethod
