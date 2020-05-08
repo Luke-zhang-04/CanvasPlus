@@ -1,4 +1,4 @@
-<div align="center"><img alt="logo" src="assets/logo.png" /></div>
+<div align="center"><img alt="logo" src="/Luke-zhang-04/CanvasPlus/raw/master/assets/logo.png" /></div>
 
 <p align="center">
     <a href="https://www.python.org/"><img alt="forthebadge made-with-python" src="http://ForTheBadge.com/images/badges/made-with-python.svg"/></a><br/>
@@ -110,4 +110,4 @@ canvas.update()
 canvas.mainloop()
 ```
 
-![demo](assets/demo.png)
+![demo](/Luke-zhang-04/CanvasPlus/raw/master/assets/demo.png)

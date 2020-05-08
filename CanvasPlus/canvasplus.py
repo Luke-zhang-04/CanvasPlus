@@ -20,7 +20,7 @@ else:
     from templates import Template
     from assets import WidgetWindows, AsyncTransformations, Transformations
 
-_canvasPlusVersion = "v1.4.0"
+_canvasPlusVersion = "v1.4.1"
 
 print("This is CanvasPlus %s" % _canvasPlusVersion)
 

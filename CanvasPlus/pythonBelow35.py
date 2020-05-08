@@ -23,7 +23,7 @@ else:
     from templates import Template
     from pythonBelow35Assets import WidgetWindows, AsyncTransformations, Transformations
 
-_canvasPlusVersion = "v1.4.0"
+_canvasPlusVersion = "v1.4.1"
 
 print("This is CanvasPlus %s for Python versions below 3.5" % _canvasPlusVersion)
 
