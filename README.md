@@ -1,6 +1,5 @@
-<div align="center"><img src="assets/logo.png" /></div>
+<div align="center"><img alt="logo" src="assets/logo.png" /></div>
 
-## V1.3.2 ##
 <p align="center">
     <a href="https://www.python.org/"><img alt="forthebadge made-with-python" src="http://ForTheBadge.com/images/badges/made-with-python.svg"/></a><br/>
     <a href="https://GitHub.com/Luke-zhang-04/CanvasPlus/releases"><img alt="GitHub release" src="https://img.shields.io/github/release/Luke-zhang-04/CanvasPlus?logo=GitHub"/></a>
@@ -111,4 +110,4 @@ canvas.update()
 canvas.mainloop()
 ```
 
-![Screen Shot 2020-04-12 at 4 40 53 PM](https://user-images.githubusercontent.com/55749227/79079310-60fc0580-7cdc-11ea-9452-ab0d625fb549.png)
+![demo](assets/demo.png)
