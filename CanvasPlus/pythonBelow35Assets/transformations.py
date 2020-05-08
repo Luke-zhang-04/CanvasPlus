@@ -55,10 +55,11 @@ class AnalyticGeometry:
             flat = eqn2["m"] in (None, 0) and eqn1["m"] in (None, 0)
 
         if flat:
-            if "x" in eqn1:
-                poi = float(eqn1["x"]), float(eqn2["y"])
-            else:
-                poi = float(eqn2["x"]), float(eqn1["y"])
+            poi = (
+                float(eqn1["x"]),
+                float(eqn2["y"]) if "x" in eqn1 else float(eqn2["x"]),
+                float(eqn1["y"]),
+            )
         else:
             if "b" not in eqn1:
                 eqn1["b"] = 0
