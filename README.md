@@ -1,4 +1,4 @@
-<div align="center"><img alt="logo" src="/Luke-zhang-04/CanvasPlus/raw/master/assets/logo.png" /></div>
+<div align="center"><img alt="logo" src="https://user-images.githubusercontent.com/55749227/81359054-1769c500-90a6-11ea-8d52-541de3f3662d.png" /></div>
 
 <p align="center">
     <a href="https://www.python.org/"><img alt="forthebadge made-with-python" src="http://ForTheBadge.com/images/badges/made-with-python.svg"/></a><br/>
@@ -110,4 +110,4 @@ canvas.update()
 canvas.mainloop()
 ```
 
-![demo](/Luke-zhang-04/CanvasPlus/raw/master/assets/demo.png)
+![demo](https://user-images.githubusercontent.com/55749227/81359089-2a7c9500-90a6-11ea-9910-710de0d39e27.png)
