@@ -2,6 +2,7 @@
 """Luke-zhang-04
 CanvasPlus (https://github.com/Luke-zhang-04/CanvasPlus)
 Copyright (C) 2020 Luke Zhang
+Licensed under the MIT License
 """
 
 # This file is meant for those who intend on using this package for Python versions 3.0 - 3.4

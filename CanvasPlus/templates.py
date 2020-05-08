@@ -2,6 +2,7 @@
 """Luke-zhang-04
 CanvasPlus (https://github.com/Luke-zhang-04/CanvasPlus)
 Copyright (C) 2020 Luke Zhang
+Licensed under the MIT License
 """
 
 
