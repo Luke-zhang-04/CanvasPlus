@@ -13,7 +13,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/Luke-zhang-04/CanvasPlus",
     packages=setuptools.find_packages(),
-    install_requires=["asyncio >= 3.4.3"],  # only if # Python 3.6 and below
+    install_requires=["asyncio >= 3.4.3"],  # only if # Python 3.3
     classifiers=[
         "Development Status :: 5 - Production/Stable",  # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package
         "Programming Language :: Python :: 3.3",

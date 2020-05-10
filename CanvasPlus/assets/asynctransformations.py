@@ -14,7 +14,7 @@ try:
     import asyncio
 except ImportError:
     print(
-        "Library Asyncio not found. You have four options\n1. use python 3.7 or higher\n2. install asyncio with pip (pip install asyncio)\n3. Download CanvasPlus version 1.2.2 which does not use asyncio, but loose async features\n4. Download the asyncio library from GitHub https://www.google.com/search?client=firefox-b-d&q=asyncio+github"
+        'Library Asyncio not found. You have four options\n1. use python 3.4 or higher\n2. install asyncio with pip (pip install asyncio) as it is not part of the stdlib in Python 3.3\n3. In pythonBelow35, remove any mention of"AsyncTransformations"'
     )
 
 from CanvasPlus._errors import InvalidUnitError, UnsupportedObjectType, MorphError
