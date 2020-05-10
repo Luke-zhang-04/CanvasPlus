@@ -1,6 +1,6 @@
 """Defines asynchronus transformations."""
 """Luke-zhang-04
-CanvasPlus v1.3.0 (https://github.com/Luke-zhang-04/CanvasPlus)
+CanvasPlus (https://github.com/Luke-zhang-04/CanvasPlus)
 Copyright (C) 2020 Luke Zhang
 Licensed under the MIT License
 """
@@ -21,7 +21,8 @@ from CanvasPlus._errors import InvalidUnitError, UnsupportedObjectType, MorphErr
 class AsyncTransformations:
     """define asynchronus transformation methodsscreen.update()"""
 
-    async def async_morph(self, tagOrId, time, *coords, fps=24, update=True):
+    @asyncio.coroutine
+    def async_morph(self, tagOrId, time, *coords, fps=24, update=True):
         """Asynchronously morph tagOrId into *coords.
         fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
         """
@@ -52,9 +53,10 @@ class AsyncTransformations:
 
             if update:
                 self.tk.call("update")
-            await asyncio.sleep(timeIncrement)
+            yield from asyncio.sleep(timeIncrement)
 
-    async def async_move(self, tagOrId, xDist, yDist, time, fps=24, update=True):
+    @asyncio.coroutine
+    def async_move(self, tagOrId, xDist, yDist, time, fps=24, update=True):
         """Asynchronously move tagOrId by xDist and yDist (x distance, y distance).
 
         fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
@@ -74,9 +76,10 @@ class AsyncTransformations:
 
             if update:
                 self.tk.call("update")
-            await asyncio.sleep(timeIncrement)
+            yield from asyncio.sleep(timeIncrement)
 
-    async def async_resize(self, tagOrId, scale, x, y, time, fps=24, update=True):
+    @asyncio.coroutine
+    def async_resize(self, tagOrId, scale, x, y, time, fps=24, update=True):
         """Asynchronously resize tagOrId with point x, y and scale.
 
         fps: frames per second, time: specify the amount of time the animation shall take to complete, update: call update() method within loop
@@ -92,9 +95,10 @@ class AsyncTransformations:
 
             if update:
                 self.tk.call("update")
-            await asyncio.sleep(timeIncrement)
+            yield from asyncio.sleep(timeIncrement)
 
-    async def async_rotate(
+    @asyncio.coroutine
+    def async_rotate(
         self, tagOrId, x, y, time, amount, unit="rad", warn=True, fps=24, update=True,
     ):
         """Asynchronously rotate tagOrId on axis x, y by amount in degrees or radians clockwise (use negaitves for counter-clockwise).
@@ -130,4 +134,4 @@ class AsyncTransformations:
 
             if update:
                 self.tk.call("update")
-            await asyncio.sleep(timeIncrement)
+            yield from asyncio.sleep(timeIncrement)

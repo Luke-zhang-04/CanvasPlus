@@ -1,6 +1,6 @@
 """defines errors for canvasplus."""
 """Luke-zhang-04
-CanvasPlus v1.3.0 (https://github.com/Luke-zhang-04/CanvasPlus)
+CanvasPlus (https://github.com/Luke-zhang-04/CanvasPlus)
 Copyright (C) 2020 Luke Zhang
 Licensed under the MIT License
 """
